@@ -1,2 +1,5 @@
+# Intellij
+.idea/
+*.iml
+*.iws
 *.xml
-idea/
