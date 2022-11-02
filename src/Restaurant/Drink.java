@@ -1,4 +1,6 @@
-public class Drink extends Meal{
+package Restaurant;
+
+public class Drink extends Meal {
     private boolean isDrinkHot;
     private int size;
 

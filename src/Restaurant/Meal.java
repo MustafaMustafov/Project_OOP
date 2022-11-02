@@ -1,3 +1,5 @@
+package Restaurant;
+
 public class Meal {
     private String name;
     private double price;
