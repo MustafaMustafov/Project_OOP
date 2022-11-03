@@ -38,4 +38,5 @@ public class Meal {
     public void setServed(boolean served) {
         isServed = served;
     }
+
 }

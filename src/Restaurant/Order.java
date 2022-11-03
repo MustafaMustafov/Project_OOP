@@ -1,15 +1,15 @@
 package Restaurant;
 
-import Restaurant.Meal;
 import Staff.Waiter;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
     private Waiter waiter;
-    private Date orderTime;
+//    private String orderTime;                 //replaced with method
     private Map<String , Meal> meals;
     private Map<Integer, Table> tables;
 
@@ -17,7 +17,9 @@ public class Order {
         this.waiter = waiter; //TODO waiter.getName();
         this.meals = new HashMap<>();
         this.tables = new HashMap<>();
-        setOrderTime(orderTime);
+        getOrderTime(); //when order is created the timer will be set!!!
+    }
+    public Order(){
     }
 
     public Waiter getWaiter() {
@@ -28,12 +30,11 @@ public class Order {
         this.waiter = waiter;
     }
 
-    public Date getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public String getOrderTime() {
+        //set current time when the method was run
+        Date thisTime = new Date();
+        SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
+        return setTime.format(thisTime);
     }
 
     public Map<String, Meal> getMeals() {
