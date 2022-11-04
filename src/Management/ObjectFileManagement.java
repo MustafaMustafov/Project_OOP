@@ -4,29 +4,30 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ObjectFileManagement {
     //TODO Object class needs to be Serializable
-    public static void writeObjectToFile(HashMap<String, Object> object) {
+    public static void writeObjectToFile(List<Object> meal) {
         try {
-            String fileName = "src/ProgramFiles/" + object.getClass().getName() + ".txt";
+            String fileName = "src/ProgramFiles/" + meal.getClass().getName() + ".txt";
             FileOutputStream outputStream = new FileOutputStream("src/ProgramFiles/.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(object);
+            objectOutputStream.writeObject(meal);
             objectOutputStream.flush();
         } catch (Exception e) {
             System.out.println("File can not be written!");
         }
     }
 
-    public static HashMap<String, Object> readObjectFromFile(String fileName) {
-        HashMap<String, Object> obj = new HashMap<>();
+    public static List<Object> readObjectFromFile(String fileName) {
+        List<Object> obj = new ArrayList<>();
 
         try {
             FileInputStream inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            obj = (HashMap<String, Object>) objectInputStream.readObject();
+            obj = (List<Object>) objectInputStream.readObject();
             objectInputStream.close();
         } catch (Exception e) {
 //            System.out.println("The file was not found!");
