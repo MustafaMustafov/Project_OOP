@@ -1,22 +1,22 @@
 package Restaurant;
 
 import Staff.Waiter;
-
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
     private Waiter waiter;
     private String orderTime;                 //replaced with method
-    private List<String> meals;
-    private String table;
+    private List<Meal> meals;
+    private Table table;
 
-    public Order(Waiter waiter, List<String> meals, String table) {
+    public Order(Waiter waiter, Table table, List<Meal> meals) {
         this.waiter = waiter;
-        this.meals = meals;
         this.table = table;
-        getOrderTime(); //when order is created the timer will be set!!!
+        this.meals = new ArrayList<>();
+        setOrderTime();                         //when order is created the timer will be set!!!
     }
     public Order(){
     }
@@ -29,26 +29,30 @@ public class Order {
         this.waiter = waiter;
     }
 
-    public String getOrderTime() {
+    public void setOrderTime() {
         //set current time when the method was run
         Date thisTime = new Date();
         SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
-        return setTime.format(thisTime);
+        this.orderTime =  setTime.format(thisTime);
     }
 
-    public List<String> getMeals() {
+    public String getOrderTime() {
+        return orderTime;
+    }
+
+    public List<Meal> getMeals() {
         return meals;
     }
 
-    public void setMeals(List<String> meals) {
+    public void setMeals(List<Meal> meals) {
         this.meals = meals;
     }
 
-    public String getTable() {
+    public Table getTable() {
         return table;
     }
 
-    public void setTable(String table) {
+    public void setTable(Table table) {
         this.table = table;
     }
 }
