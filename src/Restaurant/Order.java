@@ -4,19 +4,18 @@ import Staff.Waiter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class Order {
     private Waiter waiter;
-//    private String orderTime;                 //replaced with method
-    private Map<String , Meal> meals;
-    private Map<Integer, Table> tables;
+    private String orderTime;                 //replaced with method
+    private List<String> meals;
+    private String table;
 
-    public Order(Waiter waiter, Map<String,Meal> meals, Map<Integer, Table> tables) {
-        this.waiter = waiter; //TODO waiter.getName();
-        this.meals = new HashMap<>();
-        this.tables = new HashMap<>();
+    public Order(Waiter waiter, List<String> meals, String table) {
+        this.waiter = waiter;
+        this.meals = meals;
+        this.table = table;
         getOrderTime(); //when order is created the timer will be set!!!
     }
     public Order(){
@@ -37,19 +36,19 @@ public class Order {
         return setTime.format(thisTime);
     }
 
-    public Map<String, Meal> getMeals() {
+    public List<String> getMeals() {
         return meals;
     }
 
-    public void setMeals(Map<String, Meal> meals) {
+    public void setMeals(List<String> meals) {
         this.meals = meals;
     }
 
-    public Map<Integer, Table> getTables() {
-        return tables;
+    public String getTable() {
+        return table;
     }
 
-    public void setTables(Map<Integer, Table> tables) {
-        this.tables = tables;
+    public void setTable(String table) {
+        this.table = table;
     }
 }
