@@ -1,27 +1,27 @@
 package Restaurant;
 
 public class Table {
-    private int tableNumber;
-    private String status;
+    private int tableId;
+    private boolean isFree;
 
-    public Table(int tableNumber, String status) {
-        this.tableNumber = tableNumber;
-        this.status = status;
+    public Table(int tableId, boolean isFree) {
+        this.tableId = tableId;
+        this.isFree = isFree;
     }
 
-    public int getTableNumber() {
-        return tableNumber;
+    public int getTableId() {
+        return tableId;
     }
 
-    public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
+    public void setTableId(int tableId) {
+        this.tableId = tableId;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean getIsFree() {
+        return isFree;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        this.isFree = isFree;
     }
 }

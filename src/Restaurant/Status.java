@@ -1,6 +1,9 @@
 package Restaurant;
 
 public enum Status {
-    COOKING,
-    COOKED
+    SERVED,
+    ACTIVE;
+
+    Status() {
+    }
 }
