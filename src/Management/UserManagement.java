@@ -21,19 +21,25 @@ public class UserManagement {
     }
 
     private static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
+        Employee staff = new Employee();
         if (worker.toLowerCase().equalsIgnoreCase("chef")) {
-            Employee staff = new Chef(employeeName, userName, pswd);
+            staff = new Chef(employeeName, userName, pswd);
         } else if (worker.toLowerCase().equalsIgnoreCase("waiter")) {
-            Employee staff = new Waiter(employeeName, userName, pswd);
+             staff = new Waiter(employeeName, userName, pswd);
         } else {
             System.out.println("Wrong input!");
         }
-        return null;
+        return staff;
     }
 
     public static void main(String[] args) {
 //        registerNewUser();
         UserManagement u = new UserManagement();
+        Waiter w1 = new Waiter("Dragan","d2","123");
+       Chef c1 = new Chef("Cewe","c32","123");
+        u.getUsers().add(w1);
+        u.getUsers().add(c1);
+
         u.registerNewUser();
         u.login(u);
 
@@ -51,10 +57,12 @@ public class UserManagement {
     public List<Employee> getUsers() {
         return users;
     }
+    public void addUser(Employee user){
+        users.add(user);
+    }
 
     public void registerNewUser() {
-//        Scanner sc = new Scanner(System.in);
-        UserManagement user = new UserManagement();
+//        UserManagement user = new UserManagement();
 
         System.out.println("Enter employee name: ");
         this.employeeName = sc.nextLine();
@@ -64,20 +72,19 @@ public class UserManagement {
         this.password = sc.nextLine();
         System.out.println("Enter user position /Chef or Waiter/: ");
         String worker = sc.nextLine();
-
-        if (user.getUsers().isEmpty()) {
-            user.getUsers().add(pickupEmployee(employeeName, userName, password, worker));
+        Employee user1 = pickupEmployee(employeeName, userName, password, worker);
+        if (getUsers().isEmpty()) {
+            addUser(user1);
         } else {
-            for (Employee emp : user.getUsers()) {
-                if (emp.equals(pickupEmployee(employeeName, userName, password, worker))) {
+            for (Employee emp : getUsers()) {
+                if (emp.equals(user1)) {
                     System.out.println("User is already created!");
-//                    break;
+                    break;
                 } else {
-                    user.getUsers().add(pickupEmployee(employeeName, userName, password, worker));
+                    addUser(user1);
                     System.out.println(userName + " is created!");
-//                    break;
+                    break;
                 }
-                System.out.println(emp);
             }
         }
     }
