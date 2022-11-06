@@ -13,4 +13,12 @@ public class Meal extends Food {
     public String getType() {
         return type;
     }
+
+    public void setCooked(boolean cooked) {
+        isCooked = cooked;
+    }
+
+    public boolean isCooked() {
+        return isCooked;
+    }
 }
