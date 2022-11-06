@@ -6,15 +6,20 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-
-    private int tableId;
+    private Table table;
     private String orderTime;                 //replaced with method
     private List<Food> foods;
+    private Enum<Status> status;
 
 
-    public Order(int tableId, List<Food> foods) {
-        this.tableId = tableId;
+    public Enum<Status> getStatus() {
+        return status;
+    }
+
+    public Order(Table table, List<Food> foods, Enum<Status> status) {
+        this.table = table;
         this.foods = new ArrayList<>();
+        this.status = Status.ACTIVE;
         setOrderTime();                         //when order is created the timer will be set!!!
     }
     public Order(){

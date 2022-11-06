@@ -1,15 +1,18 @@
 package Staff;
 
-import Restaurant.Food;
-import Restaurant.Meal;
 import Restaurant.FoodMenu;
+import Restaurant.Meal;
+import Restaurant.Order;
+import Restaurant.Table;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Waiter extends Employee {
-    public static Scanner scan = new Scanner(System.in);
-    public Waiter(String name, String userName, String password) {
-        super(name, userName, password);
+    private ArrayList<Order> orders;
+    private static Scanner scan = new Scanner(System.in);
+    public Waiter(String name) {
+        super(name);
     }
 
     public void addMealToMenu() {
@@ -40,5 +43,37 @@ public class Waiter extends Employee {
         }
     }
 
+    public void displayActiveOrders() {
+        System.out.println(" ==== Active Orders ==== ");
+        for (int i = 0; i < orders.size() ; i++) {
+            if (this.orders.get(i).getStatus().equals("ACTIVE")) {
+                this.orders.get(i).getTableId();
+            }
+        }
+        System.out.println();
+    }
+
+    public void inputNewOrder() {
+        System.out.println(" ==== Input new order === ");
+        System.out.println(" ---> Enter table number <--- ");
+        int tableId = scan.nextInt();
+        for (Order o : orders) {
+            if (o.getTableId()==tableId && o.getStatus().equals(true)) {
+                //System.out.println(orders.add(new Order(new Table(tableId,false),)));
+            }
+        }
+
+    }
+
+    public Meal addMealToOrder() {
+        System.out.println(" --- Enter meal --- ");
+        System.out.println(" -- Enter name -- ");
+        String mealName = scan.nextLine();
+        System.out.println(" -- Enter price -- ");
+        double mealPrice = scan.nextDouble();
+        System.out.println(" -- Enter type -- ");
+        String mealType = scan.nextLine();
+        return new Meal(mealName,mealPrice,mealType,false);
+    }
 }
 

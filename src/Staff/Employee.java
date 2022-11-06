@@ -8,10 +8,12 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(String name, String userName, String password) {
+    public Employee(String name) {
         this.name = name;
-        this.userName = userName ;
-        this.password = password;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Employee(String name) {

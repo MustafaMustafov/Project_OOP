@@ -2,12 +2,12 @@ package Restaurant;
 
 public class Meal extends Food {
     private String type;
-    private boolean isServed;
+    private boolean isCooked;
 
-    public Meal(String name, double price, String type, boolean isServed) {
+    public Meal(String name, double price, String type, boolean isCooked) {
         super(name, price);
         this.type = type;
-        this.isServed = isServed;
+        this.isCooked = false;
     }
 
     public String getType() {
