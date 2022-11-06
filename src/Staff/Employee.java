@@ -1,6 +1,8 @@
 package Staff;
 
-public class Employee {
+import java.io.Serializable;
+
+public class Employee implements Serializable {
     private String name;
     private String userName;
     private String password;
@@ -24,5 +26,10 @@ public class Employee {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "-> " + "name='" + name;
     }
 }
