@@ -13,4 +13,16 @@ public class Employee {
         this.userName = userName ;
         this.password = password;
     }
+
+    public Employee(String name) {
+        this.name = name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }
