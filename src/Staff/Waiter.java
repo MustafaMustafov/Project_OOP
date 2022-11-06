@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Waiter extends Employee {
     private ArrayList<Order> orders;
     private static Scanner scan = new Scanner(System.in);
+
     public Waiter(String name) {
         super(name);
     }

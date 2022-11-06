@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Order {
     private Table table;
-    private String orderTime;                 //replaced with method
+    private String orderTime;
     private List<Food> foods;
     private Enum<Status> status;
 
@@ -44,11 +44,11 @@ public class Order {
         this.foods = foods;
     }
 
-    public int getTableId() {
-        return tableId;
+    public Table getTable() {
+        return table;
     }
 
-    public void setTable(int tableId) {
-        this.tableId = tableId;
+    public void setTable(Table table) {
+        this.table = table;
     }
 }
