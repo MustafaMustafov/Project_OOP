@@ -1,4 +1,8 @@
-public class Chef extends Employee{
+package Staff;
+
+import Staff.Employee;
+
+public class Chef extends Employee {
 
     public Chef(String name, String userName, String password) {
         super(name, userName, password);

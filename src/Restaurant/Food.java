@@ -1,4 +1,6 @@
-public class Food extends Meal{
+package Restaurant;
+
+public class Food extends Meal {
     private String type;
 
     public Food(String name,double price, boolean isServed, String type) {

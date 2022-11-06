@@ -1,3 +1,5 @@
+package Restaurant;
+
 public class Meal {
     private String name;
     private double price;
@@ -36,4 +38,5 @@ public class Meal {
     public void setServed(boolean served) {
         isServed = served;
     }
+
 }
