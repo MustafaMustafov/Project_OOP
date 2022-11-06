@@ -9,12 +9,13 @@ import java.util.List;
 
 public class ObjectFileManagement {
     //TODO Object class needs to be Serializable
-    public static void writeObjectToFile(List<Object> meal) {
+    public static void writeObjectToFile(List<Object> objects, String fileName) {
         try {
-            String fileName = "src/ProgramFiles/" + meal.getClass().getName() + ".txt";
-            FileOutputStream outputStream = new FileOutputStream("src/ProgramFiles/.txt");
+//            String className = objects.getClass().+ ".csv";
+//            String fileName = "src/ProgramFiles/" + fileName;
+            FileOutputStream outputStream = new FileOutputStream("src/ProgramFiles/" + fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            objectOutputStream.writeObject(meal);
+            objectOutputStream.writeObject(objects);
             objectOutputStream.flush();
         } catch (Exception e) {
             System.out.println("File can not be written!");
@@ -25,7 +26,7 @@ public class ObjectFileManagement {
         List<Object> obj = new ArrayList<>();
 
         try {
-            FileInputStream inputStream = new FileInputStream(fileName);
+            FileInputStream inputStream = new FileInputStream("src/ProgramFiles/" + fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             obj = (List<Object>) objectInputStream.readObject();
             objectInputStream.close();

@@ -41,4 +41,9 @@ public class Chef extends Employee {
             }
         }
     }
+
+    @Override
+    public String getUserName() {
+        return super.getUserName();
+    }
 }

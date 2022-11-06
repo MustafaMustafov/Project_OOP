@@ -76,5 +76,10 @@ public class Waiter extends Employee {
         String mealType = scan.nextLine();
         return new Meal(mealName,mealPrice,mealType,false);
     }
+
+    @Override
+    public String getUserName() {
+        return super.getUserName();
+    }
 }
 
