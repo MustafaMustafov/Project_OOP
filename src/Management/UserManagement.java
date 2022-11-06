@@ -22,9 +22,9 @@ public class UserManagement {
 
     private static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
         Employee staff = new Employee();
-        if (worker.toLowerCase().equalsIgnoreCase("chef")) {
+        if (worker.equalsIgnoreCase("chef")) {
             staff = new Chef(employeeName, userName, pswd);
-        } else if (worker.toLowerCase().equalsIgnoreCase("waiter")) {
+        } else if (worker.equalsIgnoreCase("waiter")) {
              staff = new Waiter(employeeName, userName, pswd);
         } else {
             System.out.println("Wrong input!");
