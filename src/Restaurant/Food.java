@@ -1,10 +1,33 @@
 package Restaurant;
 
-public class Food extends Meal {
-    private String type;
+public class Food {
+    private String name;
+    private double price;
 
-    public Food(String name,double price, boolean isServed, String type) {
-        super(name, price, isServed);
-        this.type = type;
+    public Food() {
+
     }
+
+    public Food(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+
 }

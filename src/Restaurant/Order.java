@@ -1,32 +1,23 @@
 package Restaurant;
 
-import Staff.Waiter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private Waiter waiter;
-    private String orderTime;                 //replaced with method
-    private List<Meal> meals;
-    private Table table;
 
-    public Order(Waiter waiter, Table table, List<Meal> meals) {
-        this.waiter = waiter;
-        this.table = table;
-        this.meals = new ArrayList<>();
+    private int tableId;
+    private String orderTime;                 //replaced with method
+    private List<Food> foods;
+
+
+    public Order(int tableId, List<Food> foods) {
+        this.tableId = tableId;
+        this.foods = new ArrayList<>();
         setOrderTime();                         //when order is created the timer will be set!!!
     }
     public Order(){
-    }
-
-    public Waiter getWaiter() {
-        return waiter;
-    }
-
-    public void setWaiter(Waiter waiter) {
-        this.waiter = waiter;
     }
 
     public void setOrderTime() {
@@ -40,19 +31,19 @@ public class Order {
         return orderTime;
     }
 
-    public List<Meal> getMeals() {
-        return meals;
+    public List<Food> getMeals() {
+        return foods;
     }
 
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
+    public void setMeals(List<Food> foods) {
+        this.foods = foods;
     }
 
-    public Table getTable() {
-        return table;
+    public int getTableId() {
+        return tableId;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
+    public void setTable(int tableId) {
+        this.tableId = tableId;
     }
 }
