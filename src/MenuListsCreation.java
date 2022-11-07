@@ -5,7 +5,7 @@ import Restaurant.Meal;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Main {
+public class MenuListsCreation {
     public static void main(String[] args) {
         Meal m = new Meal("Garlic bread",2.1,"Starter", false);
         Meal m1 = new Meal("Green salad",2.9,"Starter", false);
