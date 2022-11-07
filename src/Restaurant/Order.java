@@ -1,5 +1,7 @@
 package Restaurant;
 
+import Management.ObjectFileManagement;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +25,7 @@ public class Order {
         setOrderTime();                         //when order is created the timer will be set!!!
     }
     public Order(){
+        this.foods = new ArrayList<>();
     }
 
     public void setOrderTime() {

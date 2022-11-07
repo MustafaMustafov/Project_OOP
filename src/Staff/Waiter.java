@@ -48,7 +48,7 @@ public class Waiter extends Employee {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < orders.size() ; i++) {
             if (this.orders.get(i).getStatus().equals("ACTIVE")) {
-                this.orders.get(i).getTableId();
+                this.orders.get(i).getTable();
             }
         }
         System.out.println();
@@ -59,7 +59,7 @@ public class Waiter extends Employee {
         System.out.println(" ---> Enter table number <--- ");
         int tableId = scan.nextInt();
         for (Order o : orders) {
-            if (o.getTableId()==tableId && o.getStatus().equals(true)) {
+            if (o.getTable().getTableId()==tableId && o.getStatus().equals(true)) {
                 //System.out.println(orders.add(new Order(new Table(tableId,false),)));
             }
         }

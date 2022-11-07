@@ -29,5 +29,11 @@ public class Food {
         this.price = price;
     }
 
-
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

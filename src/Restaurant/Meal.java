@@ -21,4 +21,9 @@ public class Meal extends Food {
     public boolean isCooked() {
         return isCooked;
     }
+
+    @Override
+    public String toString() {
+        return getName() + " ," + getPrice() + " ," + getType() + " ," + isCooked();
+    }
 }
