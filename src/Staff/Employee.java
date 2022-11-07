@@ -10,16 +10,14 @@ public class Employee implements Serializable {
     public Employee() {
     }
 
-    public Employee(String name) {
+    public Employee(String name, String userName, String password) {
         this.name = name;
+        this.userName = userName;
+        this.password = password;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Employee(String name) {
-        this.name = name;
     }
 
     public String getUserName() {
