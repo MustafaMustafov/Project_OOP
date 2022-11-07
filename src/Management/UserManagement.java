@@ -44,7 +44,7 @@ public class UserManagement {
         Chef c1 = new Chef("Cewe", "c32", "123");
         u.getUsersList().add(w1);
         u.getUsersList().add(c1);
-        u.registerNewUser();
+//        u.registerNewUser();
 
         writeObjectToFile(Collections.singletonList(u.getUsersList()), "users.csv");
         List<Object> temp = readObjectFromFile("users.csv");
@@ -53,7 +53,7 @@ public class UserManagement {
             System.out.println(obj);
             list = (ArrayList<Employee>) u.getUsersList();
         }
-        u.login(list);
+        u.loginUser(list);
 
 
     }
@@ -70,12 +70,7 @@ public class UserManagement {
         return users;
     }
 
-    public void addUser(Employee user) {
-        users.add(user);
-    }
-
     public void registerNewUser() {
-//        UserManagement user = new UserManagement();
 
         System.out.println("Enter employee name: ");
         this.employeeName = sc.nextLine();
@@ -87,14 +82,14 @@ public class UserManagement {
         String worker = sc.nextLine();
         Employee user1 = pickupEmployee(employeeName, userName, password, worker);
         if (getUsersList().isEmpty()) {
-            addUser(user1);
+            getUsersList().add(user1);
         } else {
             for (Employee emp : getUsersList()) {
                 if (emp.equals(user1)) {
                     System.out.println("User is already created!");
                     break;
                 } else {
-                    addUser(user1);
+                    getUsersList().add(user1);
                     System.out.println(userName + " is created!");
                     break;
                 }
@@ -102,29 +97,26 @@ public class UserManagement {
         }
     }
 
-    public void login(ArrayList<Employee> objects) {
+    public void loginUser(ArrayList<Employee> objects) {
 
         System.out.println("Enter username: ");
         String tempUserName = sc.nextLine();
         System.out.println("Enter password: ");
         String tempPswd = sc.nextLine();
-
-        for (var ob : objects) {
-            String[] temp = ob.getUserName().split("=");
-            if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPswd)) {
-                System.out.println(ob.getUserName() + " account was successfully " +
-                        "authenticated!");
-                //TODO: load next menu...
-                return;
-            }
-        }
-        System.out.println("There is no any user registered with that username!" +
-                " Do you want to create it? Yes/No");
-        if (sc.nextLine().toLowerCase().equals("yes")) {
+        if (tempUserName.equals("Manager") && tempPswd.equals("manager123")) {
             registerNewUser();
         } else {
-            System.out.println("You chose to exit!");
+            for (var ob : objects) {
+                String[] temp = ob.getUserName().split("=");
+                if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPswd)) {
+                    System.out.println(ob.getUserName() + " account was successfully " +
+                            "authenticated!");
+                    //TODO: load next menu...
+                    return;
+                }
+            }
         }
+        System.out.println("Wrong inputs!");
     }
 }
 
