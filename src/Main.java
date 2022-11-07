@@ -35,7 +35,7 @@ public class Main {
         for (Meal meal :meals ){
             System.out.println(meal);
         }
-        ObjectFileManagement.writeObjectToFile(Collections.singletonList(meals));
+        ObjectFileManagement.writeObjectToFile(Collections.singletonList(meals),"Meals.csv");
 
         System.out.println("-----------------");
         Drink d = new Drink("Water", 1);
@@ -58,11 +58,11 @@ public class Main {
         Drink d17 = new Drink("Jim beam / 50 ml /", 5);
         Drink d18 = new Drink("Irish SEXTON / 50 ml/ ", 15);
         ArrayList<Drink> drinks = new ArrayList<>();
-        Collections.addAll(drinks, d, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17);
+        Collections.addAll(drinks, d, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17,d18);
         for (Drink drink :drinks ){
             System.out.println(drink);
         }
-        ObjectFileManagement.writeObjectToFile(Collections.singletonList(drinks));
+        ObjectFileManagement.writeObjectToFile(Collections.singletonList(drinks),"Drinks.csv");
     }
 
 
