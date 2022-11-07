@@ -11,8 +11,8 @@ public class Chef extends Employee {
     private static Scanner scan = new Scanner(System.in);
     private ArrayList<Order> orders;
 
-    public Chef(String name) {
-        super(name);
+    public Chef(String name, String userName, String password) {
+        super(name,userName,password);
         this.orders = new ArrayList<>();
     }
 

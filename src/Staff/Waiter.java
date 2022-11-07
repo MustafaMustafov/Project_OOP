@@ -12,8 +12,9 @@ public class Waiter extends Employee {
     private ArrayList<Order> orders;
     private static Scanner scan = new Scanner(System.in);
 
-    public Waiter(String name) {
-        super(name);
+    public Waiter(String name, String userName, String password) {
+        super(name, userName, password);
+        this.orders = new ArrayList<>();
     }
 
     public void addMealToMenu() {
