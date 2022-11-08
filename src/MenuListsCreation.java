@@ -35,7 +35,7 @@ public class MenuListsCreation {
         for (Meal meal :meals ){
             System.out.println(meal);
         }
-        ObjectFileManagement.writeObjectToFile(Collections.singletonList(meals),"Meals.csv");
+        ObjectFileManagement.writeObjectToFile(meals,"Meals.csv");
 
         System.out.println("-----------------");
         Drink d = new Drink("Water", 1);
@@ -62,7 +62,7 @@ public class MenuListsCreation {
         for (Drink drink :drinks ){
             System.out.println(drink);
         }
-        ObjectFileManagement.writeObjectToFile(Collections.singletonList(drinks),"Drinks.csv");
+        ObjectFileManagement.writeObjectToFile(drinks,"Drinks.csv");
     }
 
 

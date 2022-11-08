@@ -1,15 +1,12 @@
 package Management;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectFileManagement {
     //TODO Object class needs to be Serializable
-    public static void writeObjectToFile(List<Object> objects, String fileName) {
+    public static<T> void writeObjectToFile(ArrayList<T> objects, String fileName) {
         try {
 //            String className = objects.getClass().+ ".csv";
 //            String fileName = "src/ProgramFiles/" + fileName;
@@ -22,13 +19,13 @@ public class ObjectFileManagement {
         }
     }
 
-    public static List<Object> readObjectFromFile(String fileName) {
-        List<Object> obj = new ArrayList<>();
+    public static<T> ArrayList<T> readObjectFromFile(String fileName) {
+        ArrayList<T> obj = new ArrayList<>();
 
         try {
             FileInputStream inputStream = new FileInputStream("src/ProgramFiles/" + fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-            obj = (List<Object>) objectInputStream.readObject();
+            obj = (ArrayList<T>) objectInputStream.readObject();
             objectInputStream.close();
         } catch (Exception e) {
 //            System.out.println("The file was not found!");
@@ -37,13 +34,20 @@ public class ObjectFileManagement {
         return obj;
     }
 
+    public static<T> void writeObjectToFileNew(List<T> objects, String fileName) {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(fileName);
+            ObjectOutputStream writeOut = new ObjectOutputStream(fileOut);
+            for (var tempObj : objects) {
+                writeOut.writeObject(tempObj);
+                writeOut.flush();
+            }
+            writeOut.close();
+            fileOut.close();
+            System.out.println("Data is save to file " + fileName);
 
-//    public static void main(String[] args) {
-//        Object ivan = new Object();
-//        HashMap<String, Object> testо = new HashMap<>();
-//        testо.put("Ivan", ivan);
-////        writeObjectToFile(test);
-//        String temp = String.valueOf(readObjectFromFile("src/ProgramFiles/.txt"));
-//        System.out.println(temp);
-//    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
