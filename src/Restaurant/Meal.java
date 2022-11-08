@@ -24,6 +24,6 @@ public class Meal extends Food {
 
     @Override
     public String toString() {
-        return getName() + " ," + getPrice() + " ," + getType() + " ," + isCooked();
+        return getName() + "," + getPrice() + "," + getType() + "," + isCooked();
     }
 }
