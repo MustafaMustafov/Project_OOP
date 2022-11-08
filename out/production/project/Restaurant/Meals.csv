@@ -1,0 +1,24 @@
+﻿name;price;type;status
+Garlic bread;2.1;Starter;FALSE
+Green salad;2.9;Starter;FALSE
+Grilled mushrooms;3.1;Starter;FALSE
+Vegetable soup;3.5;Starter;FALSE
+onion rings;3.5;Starter;FALSE
+Pasta salad;3.9;Starter;FALSE
+Cornish pasty;3.9;Starter;FALSE
+Checken wings;4.1;Starter;FALSE
+Meatballs;4.4;Starter;FALSE
+Spaghetti;6;Main;FALSE
+Meatloaf;7.2;Main;FALSE
+Grilled chicken;7.5;Main;FALSE
+Lasagna;8.5;Main;FALSE
+Steak;8.9;Main;FALSE
+Lamb chops;9.2;Main;FALSE
+King prawns;9.9;Main;FALSE
+Frutti del Mare;9.9;Main;FALSE
+Apple pie;3;Dessert;TRUE
+Backberry pie;3.1;Dessert;TRUE
+Pumpkin pie;3.3;Dessert;TRUE
+Chocolate cake;3.5;Dessert;TRUE
+Ice cream;3.7;Dessert;TRUE
+Fruit salad;4;Dessert;TRUE
