@@ -9,8 +9,8 @@ public class ObjectFileManagement {
     public static<T> void writeObjectToFile(ArrayList<T> objects, String fileName) {
         try {
 //            String className = objects.getClass().+ ".csv";
-//            String fileName = "src/ProgramFiles/" + fileName;
-            FileOutputStream outputStream = new FileOutputStream("src/ProgramFiles/" + fileName);
+//            String fileName1 = "src/ProgramFiles/" + fileName;
+            FileOutputStream outputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(objects);
             objectOutputStream.flush();
@@ -23,7 +23,7 @@ public class ObjectFileManagement {
         ArrayList<T> obj = new ArrayList<>();
 
         try {
-            FileInputStream inputStream = new FileInputStream("src/ProgramFiles/" + fileName);
+            FileInputStream inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             obj = (ArrayList<T>) objectInputStream.readObject();
             objectInputStream.close();
