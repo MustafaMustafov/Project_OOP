@@ -24,6 +24,15 @@ public class Order {
         this.status = Status.ACTIVE;
         setOrderTime();                         //when order is created the timer will be set!!!
     }
+
+    public void setStatus(Enum<Status> status) {
+        this.status = status;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
     public Order(){
         this.foods = new ArrayList<>();
     }
