@@ -1,55 +1,66 @@
 package Restaurant;
 
-import Staff.Waiter;
+import Management.ObjectFileManagement;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class Order {
-    private Waiter waiter;
-//    private String orderTime;                 //replaced with method
-    private Map<String , Meal> meals;
-    private Map<Integer, Table> tables;
+    private Table table;
+    private String orderTime;
+    private List<Food> foods;
+    private Enum<Status> status;
 
-    public Order(Waiter waiter, Map<String,Meal> meals, Map<Integer, Table> tables) {
-        this.waiter = waiter; //TODO waiter.getName();
-        this.meals = new HashMap<>();
-        this.tables = new HashMap<>();
-        getOrderTime(); //when order is created the timer will be set!!!
+
+    public Enum<Status> getStatus() {
+        return status;
     }
+
+    public Order(Table table, List<Food> foods, Enum<Status> status) {
+        this.table = table;
+        this.foods = new ArrayList<>();
+        this.status = Status.ACTIVE;
+        setOrderTime();                         //when order is created the timer will be set!!!
+    }
+
+    public void setStatus(Enum<Status> status) {
+        this.status = status;
+    }
+
+    public List<Food> getFoods() {
+        return foods;
+    }
+
     public Order(){
+        this.foods = new ArrayList<>();
     }
 
-    public Waiter getWaiter() {
-        return waiter;
-    }
-
-    public void setWaiter(Waiter waiter) {
-        this.waiter = waiter;
-    }
-
-    public String getOrderTime() {
+    public void setOrderTime() {
         //set current time when the method was run
         Date thisTime = new Date();
         SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
-        return setTime.format(thisTime);
+        this.orderTime =  setTime.format(thisTime);
     }
 
-    public Map<String, Meal> getMeals() {
-        return meals;
+    public String getOrderTime() {
+        return orderTime;
     }
 
-    public void setMeals(Map<String, Meal> meals) {
-        this.meals = meals;
+    public List<Food> getMeals() {
+        return foods;
     }
 
-    public Map<Integer, Table> getTables() {
-        return tables;
+    public void setMeals(List<Food> foods) {
+        this.foods = foods;
     }
 
-    public void setTables(Map<Integer, Table> tables) {
-        this.tables = tables;
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 }

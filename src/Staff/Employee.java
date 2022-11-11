@@ -12,12 +12,12 @@ public class Employee implements Serializable {
 
     public Employee(String name, String userName, String password) {
         this.name = name;
-        this.userName = userName ;
+        this.userName = userName;
         this.password = password;
     }
 
-    public Employee(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getUserName() {
