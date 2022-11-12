@@ -118,7 +118,6 @@ public class UserManagement {
         System.out.println("Wrong inputs!");
     }
     public static boolean checkPosition(){
-
         return false;
     }
 }
