@@ -7,8 +7,7 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Management.UserManagement.checkPosition;
-import static Management.UserManagement.loginUser;
+import static Management.UserManagement.getUserProfession;
 
 public class RMS {
     static int select;
@@ -20,7 +19,7 @@ public class RMS {
         System.out.println("Welcome to RMS!");
         do {
             UserManagement.loginUser(staff);
-            boolean key = checkPosition();
+            boolean key = getUserProfession();
             if (key) {
                 runMenuWaiter();
             } else {
@@ -52,6 +51,7 @@ public class RMS {
                     return;
                 case 1:
                     waiter.addMealToMenu();
+                    break;
                 case 2:
                     waiter.removeMealFromMenu();
                     break;
@@ -94,7 +94,6 @@ public class RMS {
                 case 0:
                     System.out.println("The program is ending!");
                     return;
-
                 case 1:
                     chef.displayOrders();
                     break;
@@ -105,7 +104,6 @@ public class RMS {
                     return;
             }
         }while(select!=0);
-
     }
 }
 

@@ -61,12 +61,12 @@ public class UserManagement {
             u.registerNewUser(employees);
             return;
         } else {
-            for (var ob : employees) {
-                String[] temp = ob.getUserName().split("=");
-                if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPassword)) {
-                    System.out.println(ob.getUserName() + " account was successfully " +
+            for (var obj : employees) {
+                String[] temp = obj.getUserName().split("=");
+                if (temp[temp.length - 1].equals(tempUserName) && obj.getPassword().equals(tempPassword)) {
+                    System.out.println(obj.getUserName() + " account was successfully " +
                             "authenticated!");
-                    setActiveUser(ob.getClass().getName().toLowerCase());
+                    setActiveUser(obj.getClass().getName().toLowerCase());
                     return;
                 }
             }
@@ -74,7 +74,7 @@ public class UserManagement {
         System.out.println("Wrong inputs!");
     }
 
-    public static boolean checkPosition() {
+    public static boolean getUserProfession() {
         if(getActiveUser().equals("staff.chef")){
             return false;
         }else{
