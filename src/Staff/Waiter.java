@@ -15,6 +15,9 @@ public class Waiter extends Employee {
         super(name, userName, password);
         this.orders = new ArrayList<>();
     }
+    public Waiter(){
+
+    }
 
     public void addMealToMenu() {
         System.out.println("Enter meal name: ");

@@ -15,6 +15,9 @@ public class Chef extends Employee {
         super(name,userName,password);
         this.orders = new ArrayList<>();
     }
+    public Chef(){
+
+    }
 
     public void displayOrders() {
         System.out.println(" ==== Display Orders ==== ");
