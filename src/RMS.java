@@ -13,6 +13,7 @@ import static Management.UserManagement.loginUser;
 public class RMS {
     static int select;
     static Scanner sc = new Scanner(System.in);
+
     static ArrayList<Employee> staff = ObjectFileManagement.readObjectFromFile("users.csv");
 
 
