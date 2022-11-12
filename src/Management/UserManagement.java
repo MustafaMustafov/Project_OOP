@@ -5,6 +5,8 @@ import Staff.Employee;
 import Staff.Waiter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import static Management.ObjectFileManagement.readObjectFromFile;
@@ -15,7 +17,7 @@ public class UserManagement {
     private String employeeName;
     private String userName;
     private String password;
-    private ArrayList<Employee> users;
+    private List<Employee> users;
 
 
     public UserManagement() {
@@ -44,11 +46,12 @@ public class UserManagement {
         u.getUsersList().add(c1);
 //        u.registerNewUser();
 
-        writeObjectToFile((u.getUsersList()), "users.csv");
-        ArrayList<Employee> list = readObjectFromFile("users.csv");
-        for (Employee obj : list) {
+        writeObjectToFile(Collections.singletonList(u.getUsersList()), "users.csv");
+        List<Object> temp = readObjectFromFile("users.csv");
+        ArrayList<Employee> list = null;
+        for (Object obj : temp) {
             System.out.println(obj);
-            list = u.getUsersList();
+            list = (ArrayList<Employee>) u.getUsersList();
         }
         u.loginUser(list);
 
@@ -63,7 +66,7 @@ public class UserManagement {
         return password;
     }
 
-    public ArrayList<Employee> getUsersList() {
+    public List<Employee> getUsersList() {
         return users;
     }
 
