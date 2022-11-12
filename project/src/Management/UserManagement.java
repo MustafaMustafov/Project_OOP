@@ -35,12 +35,14 @@ public class UserManagement {
     }
 
     public static void main(String[] args) {
-        //-------------------------------------------------------
+//        registerNewUser();
         UserManagement u = new UserManagement();
         Waiter w1 = new Waiter("Dragan", "d2", "123");
         Chef c1 = new Chef("Cewe", "c32", "123");
         u.getUsersList().add(w1);
         u.getUsersList().add(c1);
+//        u.registerNewUser();
+
         writeObjectToFile((u.getUsersList()), "users.csv");
         ArrayList<Employee> list = readObjectFromFile("users.csv");
         for (Employee obj : list) {
@@ -48,22 +50,22 @@ public class UserManagement {
             list = u.getUsersList();
         }
         loginUser(list);
-        //------------------------------------------------------
     }
 
     public static void loginUser(ArrayList<Employee> employees) {
         UserManagement u = new UserManagement();
+
         System.out.println("Enter username: ");
         String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
-        String tempPassword = scan.nextLine();
-        if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
+        String tempPswd = scan.nextLine();
+        if (tempUserName.equals("Manager") && tempPswd.equals("manager123")) {
             u.registerNewUser(employees);
             return;
         } else {
             for (var ob : employees) {
                 String[] temp = ob.getUserName().split("=");
-                if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPassword)) {
+                if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPswd)) {
                     System.out.println(ob.getUserName() + " account was successfully " +
                             "authenticated!");
                     setActiveUser(ob.getClass().getName().toLowerCase());
@@ -75,17 +77,19 @@ public class UserManagement {
     }
 
     public static boolean checkPosition() {
-        if(getActiveUser().equals("staff.chef")){
+        if (getActiveUser().equals("staff.chef")) {
             return false;
-        }else{
+        } else{
             return true;
         }
+
     }
 
     public static String getActiveUser() {
         return activeUser;
     }
 
+    //Main method for tests
     private static void setActiveUser(String activeUser) {
         UserManagement.activeUser = activeUser;
     }
@@ -111,21 +115,20 @@ public class UserManagement {
         this.password = scan.nextLine();
         System.out.println("Enter user position /Chef or Waiter/: ");
         String worker = scan.nextLine();
-        Employee newUser = pickupEmployee(employeeName, userName, password, worker);
+        Employee user1 = pickupEmployee(employeeName, userName, password, worker);
 
         if (employees.isEmpty()) {
-            employees.add(newUser);
+            employees.add(user1);
         } else {
             for (Employee emp : employees) {
-                if (emp.getUserName().equals(newUser.getUserName())) {
+                if (emp.getUserName().equals(user1.getUserName())) {
                     System.out.println("User is already created!");
                     return;
                 }
             }
-            employees.add(newUser);
+            employees.add(user1);
             System.out.println(userName + " is created!");
             writeObjectToFile(employees, "users.csv");
-            loginUser(employees);
         }
     }
 }
