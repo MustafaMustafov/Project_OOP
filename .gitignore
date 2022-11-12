@@ -1,0 +1,15 @@
+# Intellij
+.idea/
+*.iml
+*.iws
+*.xml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/modules.xml
+.idea
+project.iml
+.*.xml
+.idea
+project.iml
+.*.xml
