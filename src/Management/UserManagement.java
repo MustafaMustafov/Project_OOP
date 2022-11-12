@@ -13,7 +13,7 @@ import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
-    private static Scanner sc = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
     private String employeeName;
     private String userName;
     private String password;
@@ -53,7 +53,7 @@ public class UserManagement {
             System.out.println(obj);
             list = (ArrayList<Employee>) u.getUsersList();
         }
-        u.loginUser(list);
+        loginUser(list);
 
 
     }
@@ -70,43 +70,45 @@ public class UserManagement {
         return users;
     }
 
-    public void registerNewUser() {
+    private void registerNewUser(ArrayList<Employee> employees) {
 
         System.out.println("Enter employee name: ");
-        this.employeeName = sc.nextLine();
+        this.employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
-        this.userName = sc.nextLine();
+        this.userName = scan.nextLine();
         System.out.println("Enter password: ");
-        this.password = sc.nextLine();
+        this.password = scan.nextLine();
         System.out.println("Enter user position /Chef or Waiter/: ");
-        String worker = sc.nextLine();
+        String worker = scan.nextLine();
         Employee user1 = pickupEmployee(employeeName, userName, password, worker);
-        if (getUsersList().isEmpty()) {
-            getUsersList().add(user1);
+
+        if (employees.isEmpty()) {
+            employees.add(user1);
         } else {
-            for (Employee emp : getUsersList()) {
-                if (emp.equals(user1)) {
+            for (Employee emp : employees) {
+                if (emp.getUserName().equals(user1.getUserName())) {
                     System.out.println("User is already created!");
-                    break;
-                } else {
-                    getUsersList().add(user1);
-                    System.out.println(userName + " is created!");
-                    break;
+                    return;
                 }
             }
+                employees.add(user1);
+                    System.out.println(userName + " is created!");
+                    writeObjectToFile(employees, "users.csv");
         }
     }
 
-    public void loginUser(ArrayList<Employee> objects) {
+    public static void loginUser(ArrayList<Employee> employees) {
+        UserManagement u = new UserManagement();
 
         System.out.println("Enter username: ");
-        String tempUserName = sc.nextLine();
+        String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
-        String tempPswd = sc.nextLine();
+        String tempPswd = scan.nextLine();
         if (tempUserName.equals("Manager") && tempPswd.equals("manager123")) {
-            registerNewUser();
+            u.registerNewUser(employees);
+            return;
         } else {
-            for (var ob : objects) {
+            for (var ob : employees) {
                 String[] temp = ob.getUserName().split("=");
                 if (temp[temp.length - 1].equals(tempUserName) && ob.getPassword().equals(tempPswd)) {
                     System.out.println(ob.getUserName() + " account was successfully " +
@@ -117,6 +119,10 @@ public class UserManagement {
             }
         }
         System.out.println("Wrong inputs!");
+    }
+    public static boolean checkPosition(){
+
+        return false;
     }
 }
 

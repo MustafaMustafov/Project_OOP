@@ -6,10 +6,9 @@ import java.util.List;
 
 public class ObjectFileManagement {
     //TODO Object class needs to be Serializable
-    public static<T> void writeObjectToFile(ArrayList<T> objects, String fileName) {
+    public static<T> void writeObjectToFile(ArrayList<T> objects, String inputName) {
         try {
-//            String className = objects.getClass().+ ".csv";
-//            String fileName1 = "src/ProgramFiles/" + fileName;
+            String fileName = "./src/ProgramFiles/" + inputName;
             FileOutputStream outputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(objects);
@@ -19,35 +18,19 @@ public class ObjectFileManagement {
         }
     }
 
-    public static<T> ArrayList<T> readObjectFromFile(String fileName) {
+    public static<T> ArrayList<T> readObjectFromFile(String inputName) {
         ArrayList<T> obj = new ArrayList<>();
-
         try {
+            String fileName = "src/ProgramFiles/" + inputName;
             FileInputStream inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             obj = (ArrayList<T>) objectInputStream.readObject();
             objectInputStream.close();
+            inputStream.close();
         } catch (Exception e) {
-//            System.out.println("The file was not found!");
-            System.out.println(e);
+            System.out.println("File not found!");
         }
         return obj;
     }
 
-    public static<T> void writeObjectToFileNew(List<T> objects, String fileName) {
-        try {
-            FileOutputStream fileOut = new FileOutputStream(fileName);
-            ObjectOutputStream writeOut = new ObjectOutputStream(fileOut);
-            for (var tempObj : objects) {
-                writeOut.writeObject(tempObj);
-                writeOut.flush();
-            }
-            writeOut.close();
-            fileOut.close();
-            System.out.println("Data is save to file " + fileName);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
