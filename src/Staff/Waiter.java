@@ -51,8 +51,9 @@ public class Waiter extends Employee {
     public void displayActiveOrders() {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < orders.size() ; i++) {
-            if (this.orders.get(i).getStatus().equals("ACTIVE")) {
-                this.orders.get(i).getTable();
+            if (this.orders.get(i).getStatus().equals(Status.ACTIVE)) {
+                System.out.println("---> Table with id " + this.orders.get(i).getTable().getTableId() + " has ACTIVE order");
+                System.out.println(i + this.orders.get(i).toString());
             }
         }
         System.out.println();
@@ -70,7 +71,7 @@ public class Waiter extends Employee {
         for (int i = 0; i < tables.length; i++) {
             if (i==tableId && tables[i].getIsFree()) {
                 while(choice!=0) {
-                    System.out.println("Choose from menu to add to the order! ");
+                    System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
                     choice = scan.nextInt();
                     mealsAddedToOrder.add(FoodMenu.meals.get(choice));
                 }
