@@ -18,7 +18,6 @@ public class RMS {
 
     public static void main(String[] args) {
         System.out.println("Welcome to RMS!");
-
         do {
             UserManagement.loginUser(staff);
             boolean key = checkPosition();
@@ -34,7 +33,7 @@ public class RMS {
     public static void runMenuWaiter() {
         Waiter waiter = new Waiter();
         do {
-            System.out.println("-------Waiter MEMU -------");
+            System.out.println("-------Waiter MENU -------");
             System.out.println("1.ADD new meal to MENU");
             System.out.println("2.REMOVE meal from MENU");
             System.out.println("3.DISPLAY food menu");
@@ -42,8 +41,8 @@ public class RMS {
             System.out.println("5.CREATE new order");
             System.out.println("6.EDIT order");
             System.out.println("7.CHANGE order status");
-            System.out.println("8. Logout account");
-            System.out.println("0. EXIT");
+            System.out.println("8.Logout account");
+            System.out.println("0.EXIT");
             System.out.println("----------------------------");
             System.out.println("Select: ");
             select = sc.nextInt();
@@ -53,7 +52,6 @@ public class RMS {
                     return;
                 case 1:
                     waiter.addMealToMenu();
-                    break;
                 case 2:
                     waiter.removeMealFromMenu();
                     break;
@@ -73,31 +71,41 @@ public class RMS {
                     waiter.changeOrderStatus();
                     break;
                 case 8:
-                    loginUser(staff);
-                    break;
+                    return;
                 default:
                     System.out.println("Wrong input!!");
-
+                    break;
             }
-
         } while (select != 0);
     }
 
     public static void runMenuChef() {
         Chef chef = new Chef();
         do {
-            System.out.println("-------Waiter MEMU -------");
-            System.out.println("1.ADD new meal to MENU");
-            System.out.println("2.REMOVE meal from MENU");
-            System.out.println("8. Logout account");
-            System.out.println("0. EXIT");
+            System.out.println("-------Chef MENU -------");
+            System.out.println("1.DISPLAY order");
+            System.out.println("2.UPDATE order status");
+            System.out.println("3.Logout account");
+            System.out.println("0.EXIT");
             System.out.println("----------------------------");
             System.out.println("Select: ");
             select = sc.nextInt();
             switch (select) {
                 case 0:
+                    System.out.println("The program is ending!");
+                  return;
+
+                case 1:
+                    chef.displayOrders();
+                    break;
+                case 2:
+                    chef.updateOrderStatus();
+                    break;
+                case 3:
+                    return;
             }
         }while(select!=0);
+
     }
 }
 
