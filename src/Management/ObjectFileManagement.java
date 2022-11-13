@@ -8,7 +8,8 @@ public class ObjectFileManagement {
 
     public static<T> void writeObjectToFile(ArrayList<T> objects, String inputName) {
         try {
-            String fileName = "project/src/ProgramFiles/" + inputName;
+//            String fileName = "project/src/ProgramFiles/" + inputName;
+            String fileName = "src/ProgramFiles/" + inputName;
             FileOutputStream outputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(objects);
@@ -21,7 +22,8 @@ public class ObjectFileManagement {
     public static<T> ArrayList<T> readObjectFromFile(String inputName) {
         ArrayList<T> obj = new ArrayList<>();
         try {
-            String fileName = "project/src/ProgramFiles/" + inputName;
+//            String fileName = "project/src/ProgramFiles/" + inputName;
+            String fileName = "src/ProgramFiles/" + inputName;
             FileInputStream inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             obj = (ArrayList<T>) objectInputStream.readObject();
