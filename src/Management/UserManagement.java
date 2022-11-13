@@ -7,14 +7,12 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
     private static String activeUser = null;
     private final ArrayList<Employee> users;
-    private String employeeName;
     private String userName;
     private String password;
 
@@ -22,7 +20,7 @@ public class UserManagement {
         users = new ArrayList<>();
     }
 
-    private static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
+    public static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
         Employee staff = new Employee();
         if (worker.equalsIgnoreCase("chef")) {
             staff = new Chef(employeeName, userName, pswd);
@@ -34,22 +32,6 @@ public class UserManagement {
         return staff;
     }
 
-    public static void main(String[] args) {
-        //-------------------------------------------------------
-        UserManagement u = new UserManagement();
-        Waiter w1 = new Waiter("Dragan", "d2", "123");
-        Chef c1 = new Chef("Cewe", "c32", "123");
-        u.getUsersList().add(w1);
-        u.getUsersList().add(c1);
-        writeObjectToFile((u.getUsersList()), "users.csv");
-        ArrayList<Employee> list = readObjectFromFile("users.csv");
-        for (Employee obj : list) {
-            System.out.println(obj);
-            list = u.getUsersList();
-        }
-        loginUser(list);
-        //------------------------------------------------------
-    }
 
     public static void loginUser(ArrayList<Employee> employees) {
         UserManagement u = new UserManagement();
@@ -75,9 +57,9 @@ public class UserManagement {
     }
 
     public static boolean getUserProfession() {
-        if(getActiveUser().equals("staff.chef")){
+        if (getActiveUser().equals("staff.chef")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -86,35 +68,21 @@ public class UserManagement {
         return activeUser;
     }
 
-    private static void setActiveUser(String activeUser) {
+    public static void setActiveUser(String activeUser) {
         UserManagement.activeUser = activeUser;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 
     public ArrayList<Employee> getUsersList() {
         return users;
     }
 
     private void registerNewUser(ArrayList<Employee> employees) {
-        System.out.println("Enter employee name: ");
-        this.employeeName = scan.nextLine();
-        System.out.println("Enter Username: ");
-        this.userName = scan.nextLine();
-        System.out.println("Enter password: ");
-        this.password = scan.nextLine();
-        System.out.println("Enter user position /Chef or Waiter/: ");
-        String worker = scan.nextLine();
-        Employee newUser = pickupEmployee(employeeName, userName, password, worker);
+        Employee newUser = getNewUser();
 
         if (employees.isEmpty()) {
             employees.add(newUser);
+            System.out.println(userName + " is created!");
         } else {
             for (Employee emp : employees) {
                 if (emp.getUserName().equals(newUser.getUserName())) {
@@ -124,9 +92,22 @@ public class UserManagement {
             }
             employees.add(newUser);
             System.out.println(userName + " is created!");
-            writeObjectToFile(employees, "users.csv");
-            loginUser(employees);
         }
+        writeObjectToFile(employees, "users.csv");
+        loginUser(employees);
+    }
+
+    private Employee getNewUser() {
+        System.out.println("Enter employee name: ");
+        String employeeName = scan.nextLine();
+        System.out.println("Enter Username: ");
+        this.userName = scan.nextLine();
+        System.out.println("Enter password: ");
+        this.password = scan.nextLine();
+        System.out.println("Enter user position /Chef or Waiter/: ");
+        String worker = scan.nextLine();
+        Employee newUser = pickupEmployee(employeeName, userName, password, worker);
+        return newUser;
     }
 }
 
