@@ -12,7 +12,7 @@ import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
-    private static String activeUser = null;
+    private static String activeUser;
     private final ArrayList<Employee> users;
     private String employeeName;
     private String userName;
@@ -34,22 +34,6 @@ public class UserManagement {
         return staff;
     }
 
-    public static void main(String[] args) {
-        //-------------------------------------------------------
-        UserManagement u = new UserManagement();
-        Waiter w1 = new Waiter("Dragan", "d2", "123");
-        Chef c1 = new Chef("Cewe", "c32", "123");
-        u.getUsersList().add(w1);
-        u.getUsersList().add(c1);
-        writeObjectToFile((u.getUsersList()), "users.csv");
-        ArrayList<Employee> list = readObjectFromFile("users.csv");
-        for (Employee obj : list) {
-            System.out.println(obj);
-            list = u.getUsersList();
-        }
-        loginUser(list);
-        //------------------------------------------------------
-    }
 
     public static void loginUser(ArrayList<Employee> employees) {
         UserManagement u = new UserManagement();
@@ -57,6 +41,7 @@ public class UserManagement {
         String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
+
         if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
             u.registerNewUser(employees);
             return;
