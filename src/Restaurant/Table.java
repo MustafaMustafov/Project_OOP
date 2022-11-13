@@ -8,13 +8,21 @@ public class Table {
         this.tableId = tableId;
         this.isFree = isFree;
     }
-
+    public Table() {
+        this.tableId = 1;
+        this.isFree = true;
+    }
     public int getTableId() {
         return tableId;
     }
 
     public void setTableId(int tableId) {
-        this.tableId = tableId;
+        if(tableId<1 || tableId>15) {
+            System.out.println("No such table");
+        } else {
+            this.tableId = tableId;
+        }
+
     }
 
     public boolean getIsFree() {

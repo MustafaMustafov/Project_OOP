@@ -12,6 +12,7 @@ import static Management.UserManagement.getUserProfession;
 public class RMS {
     static int select;
     static Scanner sc = new Scanner(System.in);
+
     static ArrayList<Employee> staff = ObjectFileManagement.readObjectFromFile("users.csv");
 
 

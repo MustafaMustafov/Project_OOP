@@ -63,4 +63,14 @@ public class Order {
     public void setTable(Table table) {
         this.table = table;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "table=" + table +
+                ", orderTime='" + orderTime + '\'' +
+                ", foods=" + foods +
+                ", status=" + status +
+                '}';
+    }
 }

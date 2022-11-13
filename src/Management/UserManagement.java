@@ -11,7 +11,7 @@ import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
-    private static String activeUser = null;
+    private static String activeUser;
     private final ArrayList<Employee> users;
     private String userName;
     private String password;
@@ -39,6 +39,7 @@ public class UserManagement {
         String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
+
         if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
             u.registerNewUser(employees);
             return;

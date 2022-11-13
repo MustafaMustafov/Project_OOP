@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Waiter extends Employee {
-    private ArrayList<Order> orders;
+    private ArrayList<Order> orders = new ArrayList<>();
+    private Table[] tables = new Table[5];
     private static Scanner scan = new Scanner(System.in);
 
     public Waiter(String name, String userName, String password) {
@@ -18,60 +19,64 @@ public class Waiter extends Employee {
     public Waiter(){
 
     }
-
+    private void addTablesToWaiter() {
+        for (int i = 0; i < tables.length; i++) {
+            this.tables[i] = new Table(i+1,true);
+        }
+    }
     public void addMealToMenu() {
         System.out.println("Enter meal name: ");
         String mealName = scan.nextLine();
         System.out.println("Enter meal price: ");
         double mealPrice = scan.nextDouble();
         System.out.println("Enter meal type: ");
-        String mealType = scan.nextLine();
+        String mealType = scan.next();
         FoodMenu.meals.add(new Meal(mealName,mealPrice,mealType,false));
     }
 
     public void removeMealFromMenu() {
         System.out.println("Enter meal name to remove from menu: ");
-        String mealName = scan.nextLine();
-        for (int i = 0; i < FoodMenu.meals.size(); i++) {
-            if (FoodMenu.meals.get(i).getName().equals(mealName)) {
-                FoodMenu.meals.remove(FoodMenu.meals.get(i));
-            }
+        int mealNumber = scan.nextInt();
+        FoodMenu.meals.remove(FoodMenu.meals.get(mealNumber-1));
         }
-    }
 
     public void displayMenu() {
         System.out.println(" ====== Menu ====== ");
         System.out.println(" -- Name -- Price -- Type -- ");
         for (int i = 0; i < FoodMenu.meals.size(); i++) {
-            System.out.println(FoodMenu.meals.get(i).getName() + " - " + FoodMenu.meals.get(i).getPrice() + " - " + FoodMenu.meals.get(i).getType());
+            System.out.println((i+1) + " ---> " + FoodMenu.meals.get(i).getName() + " - " + FoodMenu.meals.get(i).getPrice() + " - " + FoodMenu.meals.get(i).getType());
         }
     }
 
     public void displayActiveOrders() {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < orders.size() ; i++) {
-            if (this.orders.get(i).getStatus().equals("ACTIVE")) {
-                this.orders.get(i).getTable();
+            if (this.orders.get(i).getStatus().equals(Status.ACTIVE)) {
+                System.out.println("---> Table with id " + this.orders.get(i).getTable().getTableId() + " has ACTIVE order");
+                System.out.println(i + this.orders.get(i).toString());
             }
         }
         System.out.println();
     }
 
     public void inputNewOrder() {
+        addTablesToWaiter();
+        int choice = 1;
         System.out.println(" ==== Input new order === ");
         System.out.println(" ---> Enter table number <--- ");
         int tableId = scan.nextInt();
-        ArrayList<Order> clientOrder = new ArrayList<>();
-        ArrayList<Meal> objects = ObjectFileManagement.readObjectFromFile("Meals.csv");
+        //ArrayList<Order> clientOrder = new ArrayList<>();
         List<Food> mealsAddedToOrder = new ArrayList<>();
-        for (Order o : orders) {
-            if (o.getTable().getTableId()==tableId && o.getStatus().equals(true)) {
-                while(scan.nextInt()!=0) {
-                    System.out.println("Choose from menu to add to the order! ");
-                    int choice = scan.nextInt();
-                    mealsAddedToOrder.add(objects.get(choice));
+        displayMenu();
+        for (int i = 0; i < tables.length; i++) {
+            if (i==tableId && tables[i].getIsFree()) {
+                while(choice!=0) {
+                    System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
+                    choice = scan.nextInt();
+                    mealsAddedToOrder.add(FoodMenu.meals.get(choice));
                 }
-                System.out.println(orders.add(new Order(new Table(tableId,false),mealsAddedToOrder,Status.ACTIVE)));
+                orders.add(new Order(new Table(tableId,false),mealsAddedToOrder,Status.ACTIVE));
+                break;
             }
         }
     }
