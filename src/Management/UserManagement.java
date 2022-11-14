@@ -7,6 +7,7 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
@@ -58,9 +59,9 @@ public class UserManagement {
     }
 
     public static boolean getUserProfession() {
-        if (getActiveUser().equals("staff.chef")) {
+        if(getActiveUser().equals("staff.chef")){
             return false;
-        } else {
+        }else{
             return true;
         }
     }
@@ -73,32 +74,19 @@ public class UserManagement {
         UserManagement.activeUser = activeUser;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     public ArrayList<Employee> getUsersList() {
         return users;
     }
 
     private void registerNewUser(ArrayList<Employee> employees) {
-        Employee newUser = getNewUser();
-
-        if (employees.isEmpty()) {
-            employees.add(newUser);
-            System.out.println(userName + " is created!");
-        } else {
-            for (Employee emp : employees) {
-                if (emp.getUserName().equals(newUser.getUserName())) {
-                    System.out.println("User is already created!");
-                    return;
-                }
-            }
-            employees.add(newUser);
-            System.out.println(userName + " is created!");
-        }
-        writeObjectToFile(employees, "users.csv");
-        loginUser(employees);
-    }
-
-    private Employee getNewUser() {
         System.out.println("Enter employee name: ");
         String employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
@@ -108,7 +96,21 @@ public class UserManagement {
         System.out.println("Enter user position /Chef or Waiter/: ");
         String worker = scan.nextLine();
         Employee newUser = pickupEmployee(employeeName, userName, password, worker);
-        return newUser;
+
+        if (employees.isEmpty()) {
+            employees.add(newUser);
+        } else {
+            for (Employee emp : employees) {
+                if (emp.getUserName().equals(newUser.getUserName())) {
+                    System.out.println("User is already created!");
+                    return;
+                }
+            }
+            employees.add(newUser);
+            System.out.println(userName + " is created!");
+            writeObjectToFile(employees, "users.csv");
+            loginUser(employees);
+        }
     }
 }
 

@@ -1,4 +1,5 @@
 import Management.UserManagement;
+import Staff.Chef;
 import Staff.Employee;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,10 +12,7 @@ class UserManagementTest {
 
     @Test
     public void TestLoginUserIsManagerUsername() {
-        UserManagement userTest = new UserManagement();
-        ArrayList<Employee> users = userTest.getUsersList();
-        String testUserName = "Manager";
-        String expected =testUserName;
+        String expected ="Manager";
         String actualEntered="Manager";
 
         assertEquals(expected,actualEntered);
@@ -22,15 +20,32 @@ class UserManagementTest {
 
     @Test
     public void TestLoginPasswordIsManagerPassword() {
-        UserManagement userTest = new UserManagement();
-        String testPassword = "manager123";
-        String expected =testPassword;
+        String expected ="manager123";
         String actualEntered="manager123";
 
         assertEquals(expected,actualEntered);
     }
 
     @Test
-    void getUserProfession() {
+    void TestIsChefisActiveUser() {
+        Employee testUser = new Chef();
+        UserManagement.setActiveUser("staff.chef");
+        boolean expectedProfession = false;
+        String actualProfession = UserManagement.getActiveUser();
+        assertFalse(expectedProfession,actualProfession);
+    }
+
+    @Test
+    void TestIfChefIsGetProfession() {
+        UserManagement.setActiveUser("staff.chef");
+        boolean actualProfession = UserManagement.getUserProfession();
+        assertFalse(actualProfession);
+    }
+
+    @Test
+    void TestIsWaiterProfessionActive() {
+        UserManagement.setActiveUser("staff.waiter");
+        boolean actualProfession = UserManagement.getUserProfession();
+        assertTrue(actualProfession);
     }
 }
