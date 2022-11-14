@@ -7,6 +7,7 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
@@ -34,15 +35,21 @@ public class UserManagement {
 
 
     public static void loginUser(ArrayList<Employee> employees) {
-        UserManagement u = new UserManagement();
+        UserManagement manager = new UserManagement();
         System.out.println("Enter username: ");
         String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
 
+        if (checkUserExists(employees, manager, tempUserName, tempPassword)) return;
+        System.out.println("Wrong inputs!");
+    }
+
+    public static boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
+                                      String tempPassword) {
         if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
-            u.registerNewUser(employees);
-            return;
+            manager.registerNewUser(employees);
+            return true;
         } else {
             for (var obj : employees) {
                 String[] temp = obj.getUserName().split("=");
@@ -50,17 +57,17 @@ public class UserManagement {
                     System.out.println(obj.getUserName() + " account was successfully " +
                             "authenticated!");
                     setActiveUser(obj.getClass().getName().toLowerCase());
-                    return;
+                    return true;
                 }
             }
         }
-        System.out.println("Wrong inputs!");
+        return false;
     }
 
     public static boolean getUserProfession() {
-        if (getActiveUser().equals("staff.chef")) {
+        if(getActiveUser().equals("staff.chef")){
             return false;
-        } else {
+        }else{
             return true;
         }
     }
@@ -74,31 +81,11 @@ public class UserManagement {
     }
 
 
-    public ArrayList<Employee> getUsersList() {
-        return users;
-    }
+//    public ArrayList<Employee> getUsersList() {
+//        return users;
+//    }
 
     private void registerNewUser(ArrayList<Employee> employees) {
-        Employee newUser = getNewUser();
-
-        if (employees.isEmpty()) {
-            employees.add(newUser);
-            System.out.println(userName + " is created!");
-        } else {
-            for (Employee emp : employees) {
-                if (emp.getUserName().equals(newUser.getUserName())) {
-                    System.out.println("User is already created!");
-                    return;
-                }
-            }
-            employees.add(newUser);
-            System.out.println(userName + " is created!");
-        }
-        writeObjectToFile(employees, "users.csv");
-        loginUser(employees);
-    }
-
-    private Employee getNewUser() {
         System.out.println("Enter employee name: ");
         String employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
@@ -108,7 +95,21 @@ public class UserManagement {
         System.out.println("Enter user position /Chef or Waiter/: ");
         String worker = scan.nextLine();
         Employee newUser = pickupEmployee(employeeName, userName, password, worker);
-        return newUser;
+
+        if (employees.isEmpty()) {
+            employees.add(newUser);
+        } else {
+            for (Employee emp : employees) {
+                if (emp.getUserName().equals(newUser.getUserName())) {
+                    System.out.println("User is already created!");
+                    return;
+                }
+            }
+            employees.add(newUser);
+            System.out.println(userName + " is created!");
+            writeObjectToFile(employees, "users.csv");
+            loginUser(employees);
+        }
     }
 }
 
