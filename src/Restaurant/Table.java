@@ -32,4 +32,12 @@ public class Table {
     public void setStatus(String status) {
         this.isFree = isFree;
     }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "tableId=" + tableId +
+                ", isFree=" + isFree +
+                '}';
+    }
 }
