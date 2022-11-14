@@ -14,7 +14,6 @@ public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
     private static String activeUser;
     private final ArrayList<Employee> users;
-    private String employeeName;
     private String userName;
     private String password;
 
@@ -22,7 +21,7 @@ public class UserManagement {
         users = new ArrayList<>();
     }
 
-    private static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
+    public static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
         Employee staff = new Employee();
         if (worker.equalsIgnoreCase("chef")) {
             staff = new Chef(employeeName, userName, pswd);
@@ -71,7 +70,7 @@ public class UserManagement {
         return activeUser;
     }
 
-    private static void setActiveUser(String activeUser) {
+    public static void setActiveUser(String activeUser) {
         UserManagement.activeUser = activeUser;
     }
 
@@ -89,7 +88,7 @@ public class UserManagement {
 
     private void registerNewUser(ArrayList<Employee> employees) {
         System.out.println("Enter employee name: ");
-        this.employeeName = scan.nextLine();
+        String employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
         this.userName = scan.nextLine();
         System.out.println("Enter password: ");
