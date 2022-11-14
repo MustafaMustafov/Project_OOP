@@ -7,7 +7,6 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
@@ -33,8 +32,7 @@ public class UserManagement {
         return staff;
     }
 
-
-    public static void loginUser(ArrayList<Employee> employees) {
+    public static void loginUser(ArrayList<Employee> employees) throws Exception {
         UserManagement manager = new UserManagement();
         System.out.println("Enter username: ");
         String tempUserName = scan.nextLine();
@@ -42,11 +40,11 @@ public class UserManagement {
         String tempPassword = scan.nextLine();
 
         if (checkUserExists(employees, manager, tempUserName, tempPassword)) return;
-        System.out.println("Wrong inputs!");
+        throw new Exception("Incorrect login data entered!");
     }
 
     public static boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
-                                      String tempPassword) {
+                                          String tempPassword) throws Exception {
         if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
             manager.registerNewUser(employees);
             return true;
@@ -65,9 +63,9 @@ public class UserManagement {
     }
 
     public static boolean getUserProfession() {
-        if(getActiveUser().equals("staff.chef")){
+        if (getActiveUser().equals("staff.chef")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -80,12 +78,11 @@ public class UserManagement {
         UserManagement.activeUser = activeUser;
     }
 
+    public ArrayList<Employee> getUsersList() {
+        return users;
+    }
 
-//    public ArrayList<Employee> getUsersList() {
-//        return users;
-//    }
-
-    private void registerNewUser(ArrayList<Employee> employees) {
+    private void registerNewUser(ArrayList<Employee> employees) throws Exception {
         System.out.println("Enter employee name: ");
         String employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
