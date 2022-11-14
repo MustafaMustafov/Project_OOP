@@ -41,10 +41,13 @@ public class Waiter extends Employee {
         }
 
     public void displayMenu() {
-        System.out.println(" ====== Menu ====== ");
-        System.out.println(" -- Name -- Price -- Type -- ");
+        System.out.println(" ============== Menu ============== ");
+        System.out.println("|----| ---- Name ---- |-Price-| --Type-- |");
         for (int i = 0; i < FoodMenu.meals.size(); i++) {
-            System.out.println((i+1) + " ---> " + FoodMenu.meals.get(i).getName() + " - " + FoodMenu.meals.get(i).getPrice() + " - " + FoodMenu.meals.get(i).getType());
+            System.out.println("|" + (i+1) + "|--->|"
+                    + FoodMenu.meals.get(i).getName()
+                    + "| -> " + FoodMenu.meals.get(i).getPrice()
+                    + " lv | " + FoodMenu.meals.get(i).getType()+ " |");
         }
     }
 
