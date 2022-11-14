@@ -11,7 +11,6 @@ class UserManagementTest {
 
     @Test
     public void TestIsChefisActiveUser() {
-//        Employee testUser = new Chef();
         UserManagement.setActiveUser("staff.chef");
         boolean expectedProfession = false;
         String actualProfession = UserManagement.getActiveUser();
@@ -54,7 +53,7 @@ class UserManagementTest {
     }
 
     @Test
-    public void CheckUserExists() {
+    public void CheckUserExists() throws Exception {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();
@@ -66,7 +65,7 @@ class UserManagementTest {
     }
 
     @Test
-    public void CheckUserDoesNotExists() {
+    public void CheckUserDoesNotExists() throws Exception {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();

@@ -16,7 +16,7 @@ public class RMS {
     static ArrayList<Employee> staff = ObjectFileManagement.readObjectFromFile("users.csv");
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("Welcome to RMS!");
         do {
             UserManagement.loginUser(staff);
