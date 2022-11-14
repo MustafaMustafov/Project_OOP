@@ -35,15 +35,21 @@ public class UserManagement {
 
 
     public static void loginUser(ArrayList<Employee> employees) {
-        UserManagement u = new UserManagement();
+        UserManagement manager = new UserManagement();
         System.out.println("Enter username: ");
         String tempUserName = scan.nextLine();
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
 
+        if (checkUserExists(employees, manager, tempUserName, tempPassword)) return;
+        System.out.println("Wrong inputs!");
+    }
+
+    public static boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
+                                      String tempPassword) {
         if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
-            u.registerNewUser(employees);
-            return;
+            manager.registerNewUser(employees);
+            return true;
         } else {
             for (var obj : employees) {
                 String[] temp = obj.getUserName().split("=");
@@ -51,11 +57,11 @@ public class UserManagement {
                     System.out.println(obj.getUserName() + " account was successfully " +
                             "authenticated!");
                     setActiveUser(obj.getClass().getName().toLowerCase());
-                    return;
+                    return true;
                 }
             }
         }
-        System.out.println("Wrong inputs!");
+        return false;
     }
 
     public static boolean getUserProfession() {
@@ -74,17 +80,10 @@ public class UserManagement {
         UserManagement.activeUser = activeUser;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public ArrayList<Employee> getUsersList() {
-        return users;
-    }
+//    public ArrayList<Employee> getUsersList() {
+//        return users;
+//    }
 
     private void registerNewUser(ArrayList<Employee> employees) {
         System.out.println("Enter employee name: ");
