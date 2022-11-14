@@ -16,15 +16,19 @@ public class RMS {
     static ArrayList<Employee> staff = ObjectFileManagement.readObjectFromFile("users.csv");
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("Welcome to RMS!");
         do {
             UserManagement.loginUser(staff);
-            boolean key = getUserProfession();
-            if (key) {
-                runMenuWaiter();
-            } else {
-                runMenuChef();
+            try {
+                boolean key = getUserProfession();
+                if (key) {
+                    runMenuWaiter();
+                } else {
+                    runMenuChef();
+                }
+            }catch (NullPointerException e){
+                System.out.println("Incorrect login data entered!");
             }
 
         } while (select != 0);
