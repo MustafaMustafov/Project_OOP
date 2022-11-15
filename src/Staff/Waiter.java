@@ -1,6 +1,5 @@
 package Staff;
 
-import Management.ObjectFileManagement;
 import Restaurant.*;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ public class Waiter extends Employee {
 
     public Waiter(String name, String userName, String password) {
         super(name, userName, password);
-
     }
 
     @Override
@@ -34,19 +32,20 @@ public class Waiter extends Employee {
     }
 
     public void removeMealFromMenu() {
+        Order order = new Order();
         System.out.println("Enter meal name to remove from menu: ");
-        int mealNumber = scan.nextInt();
-        FoodMenu.meals.remove(FoodMenu.meals.get(mealNumber - 1));
+        int mealNumber = (scan.nextInt() - 1);
+        order.getFoods().remove(order.getFoods().get((mealNumber)));
     }
 
     public void displayMenu() {
         Order order = new Order();
         System.out.println(" ============== Menu ============== ");
         for (int i = 0; i < order.getFoods().size(); i++) {
-                System.out.println((i + 1) + "-->" + order.getFoods().get(i) +
-                        "\n----------------------------------------------");
-            }
+            System.out.println((i + 1) + "-->" + order.getFoods().get(i) +
+                    "\n----------------------------------------------");
         }
+    }
 
 
     public void displayActiveOrders() {
@@ -54,7 +53,7 @@ public class Waiter extends Employee {
         for (int i = 0; i < getOrders().size(); i++) {
             if (getOrders().get(i).getStatus().equals(Status.ACTIVE)) {
                 System.out.println("--> Table with id " + getOrders().get(i).getTable().getTableId() + " has ACTIVE order");
-                System.out.println((i+1)+". " + getOrders().get(i).toString());
+                System.out.println((i + 1) + ". " + getOrders().get(i).toString());
             }
         }
         System.out.println();
@@ -79,13 +78,17 @@ public class Waiter extends Employee {
     public void inputNewOrder() {
         Table table = new Table();
         Order order = new Order();
-        int choice = -1;
-        System.out.println(" ==== Input new order === ");
-        System.out.println(" ---> Enter table number <--- ");
-        int chosenTable = scan.nextInt();
-        table.setTableId(chosenTable);
+        try {
+            int choice = -1;
+            System.out.println(" ==== Input new order === ");
+            System.out.println(" ---> Enter table number <--- ");
+            int chosenTable = scan.nextInt();
+            table.setTableId(chosenTable);
 
-        chooseFood(table, order, choice, chosenTable);
+            chooseFood(table, order, choice, chosenTable);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Entered number is out of menu!");
+        }
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
@@ -96,83 +99,100 @@ public class Waiter extends Employee {
                 System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
                 choice = scan.nextInt();
                 if (choice != 0) {
-                    addFoodToOrder.add(order.getFoods().get(choice -1));
+                    addFoodToOrder.add(order.getFoods().get(choice - 1));
                 }
             }
             getOrders().add(new Order(new Table(table.getTableId(), false), addFoodToOrder, Status.ACTIVE));
-        }else{
+        } else {
             System.out.println("Table is busy!");
         }
     }
 
 
-    public void addMealToOrder() {
-        ArrayList<Meal> mealsFromMenu = ObjectFileManagement.readObjectFromFile("Meals.csv");
-        System.out.println(" ----> Which table <---- ");
-        int tableId = scan.nextInt();
-        System.out.println(" ---- Choose from meals ---- ");
-        for (Meal m : mealsFromMenu) {
-            System.out.println(m);
+    public void addMealToOrder(int order) {
+        try {
+            System.out.println(" ---- Choose from meals ---- ");
+            int mealNumber = 0;
+            for (Meal m : FoodMenu.getMeals()) {
+                mealNumber++;
+                System.out.println(mealNumber + "-> " + m);
+            }
+            int choice = (scan.nextInt() - 1);
+            getOrders().get(order).getMeals().add(FoodMenu.getMeals().get(choice));
+            System.out.println(FoodMenu.getMeals().get(choice));
+            System.out.println(getOrders().get(order).getFoods().toString());
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Chosen meal does not exist!");
         }
-        int choice = scan.nextInt();
-        getOrders().get(tableId).getMeals().add(mealsFromMenu.get(choice));
     }
 
     public void removeMealFromOrder(int order) {
-        for (Order o : getOrders()) {
-            System.out.println(getOrders().get(order).getMeals().toString());
-        }
+        System.out.println(getOrders().get(order).getMeals().toString());
         System.out.println(" ----> Which meal to remove from order? <----");
-        int chosenMeal = scan.nextInt();
-        getOrders().get(order).getMeals().remove(chosenMeal);
+        int chosenMeal = 0;
+        try {
+            chosenMeal = (scan.nextInt() - 1);
+            getOrders().get(order).getMeals().remove(chosenMeal);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Order number " + chosenMeal + " does not exist!");
+        }
     }
 
     public void editOrder() {
         displayActiveOrders();
         System.out.println(" ----> Choose which order to edit <---- ");
-        int order = scan.nextInt();
-        System.out.println(getOrders().get(order).toString());
-        System.out.println(" ----> Enter a(for adding to order) / enter r(to remove from order)");
-        String choice = scan.next();
-        switch (choice) {
-            case "a":
-                addMealToOrder();
-                break;
-            case "r":
-                removeMealFromOrder(order);
-                System.out.println(" ---> Chosen meal deleted ");
-                break;
-            default:
-                System.out.println(" ---> No such choice! ");
+        try {
+            int order = (scan.nextInt() - 1);
+            System.out.println(getOrders().get(order).toString());
+            System.out.println(" ----> Enter 'A'(for adding to order) / enter 'R' (to remove from order)");
+            String choice = scan.next().toLowerCase();
+            switch (choice) {
+                case "a":
+                    addMealToOrder(order);
+                    break;
+                case "r":
+                    removeMealFromOrder(order);
+                    System.out.println(" ---> Chosen meal deleted ");
+                    break;
+                default:
+                    System.out.println(" ---> No such choice! ");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input!");
         }
     }
 
-    public void changeOrderStatus() {
-        for (Order o : getOrders()) {
-            System.out.println(getOrders().toString());
+    private void readOrders() {
+        int count = 0;
+        for (Order order : getOrders()) {
+            count++;
+            System.out.println(count + " " + order);
         }
+
+    }
+
+    public void changeOrderStatus() {
+        readOrders();
         System.out.println(" ---- Choose any of orders to change status ---- ");
-        int choice = scan.nextInt();
-        System.out.println(" ----> Your chosen orders status is " + getOrders().get(choice).getStatus());
-        System.out.println(" ----> You can choose (s for SERVED/ a for ACTIVE) ");
-        String setStatusTo = scan.nextLine();
-        switch (setStatusTo) {
-            case "s":
-                if (getOrders().get(choice).getStatus().equals(Status.SERVED)) {
-                    System.out.println("---> That order status is already - SERVED");
-                } else {
+        try {
+        int choice = (scan.nextInt() - 1);
+        System.out.println(" ----> Your chosen order's status: " + getOrders().get(choice).getStatus());
+        System.out.println(" ----> You can choose 'S' (for SERVED) or Active by pressing 'A' ");
+            String setStatusTo = scan.next().toLowerCase();
+            switch (setStatusTo) {
+                case "s":
                     getOrders().get(choice).setStatus(Status.SERVED);
-                }
-                break;
-            case "a":
-                if (getOrders().get(choice).getStatus().equals(Status.ACTIVE)) {
-                    System.out.println("---> That order's status is already - Active");
-                } else {
+                    System.out.println("---> That order status is already - SERVED");
+                    break;
+                case "a":
                     getOrders().get(choice).setStatus(Status.ACTIVE);
-                }
-                break;
-            default:
-                System.out.println("---> No such choice for status! ");
+                    System.out.println("---> That order's status is already - Active");
+                    break;
+                default:
+                    System.out.println("---> No such choice for status! ");
+            }
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Wrong order number!");
         }
     }
 
