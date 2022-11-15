@@ -28,7 +28,9 @@ public class Order {
     }
 
     public ArrayList<Food> getFoods() {
-        return foods;
+        ArrayList<Food> newList = new ArrayList<>(FoodMenu.getMeals());
+        newList.addAll(FoodMenu.getDrinks());
+        return newList;
     }
 
     public Order(){
@@ -70,5 +72,19 @@ public class Order {
                 "| foods="  + foods +
                 "| status=" + status +
                 '|';
+    }
+
+    public static void main(String[] args) {
+        Order or = new Order();
+       int count =0;
+        for (Food f: or.getFoods()){
+            count++;
+//            if(f.getClass().getName().equals("Drinks"))
+            System.out.println(count + "-->" + f);
+            System.out.println("================");
+            System.out.println(f.getClass().getSimpleName());
+        }
+
+
     }
 }

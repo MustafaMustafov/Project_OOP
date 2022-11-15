@@ -40,15 +40,14 @@ public class Waiter extends Employee {
     }
 
     public void displayMenu() {
+        Order order = new Order();
         System.out.println(" ============== Menu ============== ");
-        System.out.println("|----| ---- Name ---- |-Price-| --Type-- |");
-        for (int i = 0; i < FoodMenu.getMeals().size(); i++) {
-            System.out.println("|" + (i + 1) + "|--->|"
-                    + FoodMenu.getMeals().get(i).getName()
-                    + "| -> " + FoodMenu.getMeals().get(i).getPrice()
-                    + " lv | " + FoodMenu.getMeals().get(i).getType() + " |");
+        for (int i = 0; i < order.getFoods().size(); i++) {
+                System.out.println((i + 1) + "-->" + order.getFoods().get(i) +
+                        "\n----------------------------------------------");
+            }
         }
-    }
+
 
     public void displayActiveOrders() {
         System.out.println(" ==== Active Orders ==== ");
@@ -85,24 +84,27 @@ public class Waiter extends Employee {
         System.out.println(" ---> Enter table number <--- ");
         int chosenTable = scan.nextInt();
         table.setTableId(chosenTable);
-        displayMenu();
+
         chooseFood(table, order, choice, chosenTable);
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
         if (checkTableStatus(chosenTable)) {
+            displayMenu();
+            ArrayList<Food> addFoodToOrder = new ArrayList<>();
             while (choice != 0) {
                 System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
                 choice = scan.nextInt();
                 if (choice != 0) {
-                    order.getFoods().add(FoodMenu.getMeals().get(choice -1));
+                    addFoodToOrder.add(order.getFoods().get(choice -1));
                 }
             }
-            getOrders().add(new Order(new Table(table.getTableId(), false), order.getFoods(), Status.ACTIVE));
+            getOrders().add(new Order(new Table(table.getTableId(), false), addFoodToOrder, Status.ACTIVE));
         }else{
             System.out.println("Table is busy!");
         }
     }
+
 
     public void addMealToOrder() {
         ArrayList<Meal> mealsFromMenu = ObjectFileManagement.readObjectFromFile("Meals.csv");
