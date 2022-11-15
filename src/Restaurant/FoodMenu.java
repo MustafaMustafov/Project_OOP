@@ -14,6 +14,8 @@ public abstract class FoodMenu {
         return drinks;
     }
 
+
+
     public static <T> ArrayList<T> loadList(String fileName) {
         ArrayList<T> newList = new ArrayList<>();
         ArrayList<T> temp = Management.ObjectFileManagement.readObjectFromFile(fileName);
@@ -37,7 +39,5 @@ public abstract class FoodMenu {
         readList(meals);
         System.out.println("------------");
         readList(drinks);
-
-
     }
 }
