@@ -1,5 +1,7 @@
 import Management.ObjectFileManagement;
 import Management.UserManagement;
+import Restaurant.Food;
+import Restaurant.FoodMenu;
 import Staff.Chef;
 import Staff.Employee;
 import Staff.Waiter;
@@ -37,6 +39,7 @@ public class RMS {
 
     public static void runMenuWaiter() {
         Waiter waiter = new Waiter();
+        FoodMenu foodMenu = new FoodMenu();
         do {
             System.out.println("-------Waiter MENU -------");
             System.out.println("1.ADD new meal to MENU");
@@ -57,16 +60,16 @@ public class RMS {
                         System.out.println("The program is ending!");
                         return;
                     case 1:
-                        waiter.addMealToMenu();
+                        foodMenu.addMealToMenu();
                         break;
                     case 2:
-                        waiter.removeMealFromMenu();
+                        foodMenu.removeMealFromMenu();
                         break;
                     case 3:
-                        waiter.displayMenu();
+                        foodMenu.displayMenu();
                         break;
                     case 4:
-                        waiter.displayActiveOrders();
+                        waiter.displayOrders();
                         break;
                     case 5:
                         waiter.inputNewOrder();
