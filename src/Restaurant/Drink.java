@@ -9,6 +9,6 @@ public class Drink extends Food {
 
     @Override
     public String toString() {
-        return getName() + "," + getPrice();
+        return "Name: "+getName() + "," + "Price: "+getPrice();
     }
 }
