@@ -1,4 +1,4 @@
-package Restaurant;
+package Staff;
 
 public interface Removable {
 }

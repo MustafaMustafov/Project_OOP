@@ -1,11 +1,15 @@
 package Staff;
 
+import Management.ObjectFileManagement;
+import Management.TextFileManagement;
+import Management.UserManagement;
 import Restaurant.*;
 
+import javax.print.attribute.standard.JobKOctets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Waiter extends Employee {
+public class Waiter extends Employee implements Displayable{
 
     private static Scanner scan = new Scanner(System.in);
 
@@ -18,37 +22,24 @@ public class Waiter extends Employee {
 
     @Override
     public ArrayList<Order> getOrders() {
+        String fileName = UserManagement.getName() + "OrderList.csv";
+        ArrayList<Order> orders = ObjectFileManagement.readObjectFromFile(fileName);
+        if (!ObjectFileManagement.readObjectFromFile(fileName).isEmpty()) {
+            super.setOrders(orders);
+        }
         return super.getOrders();
     }
 
-    public void addMealToMenu() {
-        System.out.println("Enter meal name: ");
-        String mealName = scan.nextLine();
-        System.out.println("Enter meal price: ");
-        double mealPrice = scan.nextDouble();
-        System.out.println("Enter meal type: ");
-        String mealType = scan.next();
-        FoodMenu.meals.add(new Meal(mealName, mealPrice, mealType, false));
-    }
-
-    public void removeMealFromMenu() {
-        Order order = new Order();
-        System.out.println("Enter meal name to remove from menu: ");
-        int mealNumber = (scan.nextInt() - 1);
-        order.getFoods().remove(order.getFoods().get((mealNumber)));
-    }
-
-    public void displayMenu() {
-        Order order = new Order();
-        System.out.println(" ============== Menu ============== ");
-        for (int i = 0; i < order.getFoods().size(); i++) {
-            System.out.println((i + 1) + "-->" + order.getFoods().get(i) +
-                    "\n----------------------------------------------");
+    public void saveOrderList() {
+        ArrayList<Order> order = getOrders();
+        if (UserManagement.getUserProfession()) {
+            String fileName = UserManagement.getName() + "OrderList.csv";
+            ObjectFileManagement.writeObjectToFile(order,fileName);
         }
+        TextFileManagement.writeToFile(UserManagement.getName(),"ChefOrderList.txt");
     }
 
-
-    public void displayActiveOrders() {
+    public void displayOrders() {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < getOrders().size(); i++) {
             if (getOrders().get(i).getStatus().equals(Status.ACTIVE)) {
@@ -89,11 +80,12 @@ public class Waiter extends Employee {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Entered number is out of menu!");
         }
+        saveOrderList();
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
         if (checkTableStatus(chosenTable)) {
-            displayMenu();
+            FoodMenu.displayMenu();
             ArrayList<Food> addFoodToOrder = new ArrayList<>();
             while (choice != 0) {
                 System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
@@ -139,7 +131,7 @@ public class Waiter extends Employee {
     }
 
     public void editOrder() {
-        displayActiveOrders();
+        displayOrders();
         System.out.println(" ----> Choose which order to edit <---- ");
         try {
             int order = (scan.nextInt() - 1);

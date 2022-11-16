@@ -13,6 +13,15 @@ public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
     private static String activeUser;
     private final ArrayList<Employee> users;
+    private static String name = "";
+
+    public static String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public UserManagement() {
         users = new ArrayList<>();
@@ -37,13 +46,11 @@ public class UserManagement {
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
 
-        checkUserExists(employees, manager, tempUserName, tempPassword);
+        manager.checkUserExists(employees, manager, tempUserName, tempPassword);
 //            System.out.println("Incorrect login data entered!");
-
-
     }
 
-    public static boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
+    public boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
                                           String tempPassword) {
             if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
                 manager.registerNewUser(employees);
@@ -55,6 +62,7 @@ public class UserManagement {
                         System.out.println(obj.getUserName() + " account was successfully " +
                                 "authenticated!");
                         setActiveUser(obj.getClass().getName().toLowerCase());
+                        setName(obj.getName());
                         return true;
                     }
                 }

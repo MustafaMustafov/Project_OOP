@@ -11,11 +11,6 @@ public class Employee implements Serializable {
     private String password;
     private ArrayList<Order> orders = new ArrayList<>();
 
-
-    public ArrayList<Order> getOrders() {
-        return orders;
-    }
-
     public Employee() {
     }
 
@@ -26,6 +21,13 @@ public class Employee implements Serializable {
         this.orders = new ArrayList<>();
     }
 
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+    }
+
+    public ArrayList<Order> getOrders() {
+        return orders;
+    }
     public String getName() {
         return name;
     }
@@ -42,4 +44,5 @@ public class Employee implements Serializable {
     public String toString() {
         return getClass().getSimpleName() + "-> " + "name='" + name;
     }
+
 }

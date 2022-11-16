@@ -61,7 +61,7 @@ class UserManagementTest {
         String testUserName = "test";
         String testUserPassword = "test123";
 
-        assertTrue(UserManagement.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
+        assertTrue(testManager.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
     }
 
     @Test
@@ -73,7 +73,7 @@ class UserManagementTest {
         String testUserName = "test1";
         String testUserPassword = "test123";
 
-        assertFalse(UserManagement.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
+        assertFalse(testManager.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
     }
 
 
