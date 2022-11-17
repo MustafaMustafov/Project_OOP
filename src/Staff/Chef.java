@@ -42,6 +42,7 @@ public class Chef extends Employee implements Displayable{
     }
 
     public void updateOrderStatus() {
+        ArrayList<Order> currentOrderList = getOrders();
         System.out.println("Enter order: ");
         int order = scan.nextInt(), i = 1,j=0;
             for (Food f : getOrders().get(order).getMeals()) {
@@ -50,21 +51,21 @@ public class Chef extends Employee implements Displayable{
             }
             System.out.println("Enter meal to change status to COOKED: ");
             int meal = scan.nextInt()-1;
-            if (getOrders().get(order).getMeals().get(meal).equals("Restaurant.Drink")) {
+            if (getOrders().get(order).getMeals().get(meal).getClass().toString().equals("Restaurant.Drink")) {
                 System.out.println("Wrong food choice!");
             } else {
-                Meal mealToUpdate =(Meal)getOrders().get(order).getFoods().get(meal);
-                getOrders().get(order).getFoods().remove(mealToUpdate);
+                Meal mealToUpdate =(Meal) getOrders().get(order).getMeals().get(meal);
+                currentOrderList.get(order).getMeals().remove(meal);
                 mealToUpdate.setMealStatus(MealStatus.COOKED);
-                getOrders().get(order).getFoods().add(mealToUpdate);
+                currentOrderList.get(order).getMeals().add(mealToUpdate);
                 //getOrders().get(order).getMeals().set(meal,(Food) mealToUpdate);
             }
-        saveOrderList();
+        saveOrderList(currentOrderList);
     }
 
-    public void saveOrderList() {
+    public void saveOrderList(ArrayList<Order> currentOrderList) {
         String waiterName = TextFileManagement.readFromFile("ChefOrderList.txt");
-        ArrayList<Order> order = getOrders();
+        ArrayList<Order> order = currentOrderList;
         String fileName = waiterName + "OrderList.csv";
         ObjectFileManagement.writeObjectToFile(order,fileName);
 

@@ -66,7 +66,7 @@ public class RMS {
                         foodMenu.removeMealFromMenu();
                         break;
                     case 3:
-                        foodMenu.displayMenu();
+                        FoodMenu.displayMenu();
                         break;
                     case 4:
                         waiter.displayOrders();
