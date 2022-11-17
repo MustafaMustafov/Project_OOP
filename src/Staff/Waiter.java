@@ -84,6 +84,7 @@ public class Waiter extends Employee implements Displayable{
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
+        double sum = 0;
         if (checkTableStatus(chosenTable)) {
             FoodMenu.displayMenu();
             ArrayList<Food> addFoodToOrder = new ArrayList<>();
@@ -92,6 +93,8 @@ public class Waiter extends Employee implements Displayable{
                 choice = scan.nextInt();
                 if (choice != 0) {
                     addFoodToOrder.add(order.getFoods().get(choice - 1));
+                    sum = totalAmount(choice,order,sum);
+                    System.out.println("Total amount: " + sum);
                 }
             }
             getOrders().add(new Order(new Table(table.getTableId(), false), addFoodToOrder, Status.ACTIVE));
@@ -100,8 +103,13 @@ public class Waiter extends Employee implements Displayable{
         }
     }
 
+    private double totalAmount(int choice, Order order, double sum) {
+        sum += order.getFoods().get(choice).getPrice();
+        return sum;
+    }
 
-    public void addMealToOrder(int order) {
+
+    private void addMealToOrder(int order) {
         try {
             System.out.println(" ---- Choose from meals ---- ");
             int mealNumber = 0;
@@ -118,7 +126,7 @@ public class Waiter extends Employee implements Displayable{
         }
     }
 
-    public void removeMealFromOrder(int order) {
+    private void removeMealFromOrder(int order) {
         System.out.println(getOrders().get(order).getMeals().toString());
         System.out.println(" ----> Which meal to remove from order? <----");
         int chosenMeal = 0;
