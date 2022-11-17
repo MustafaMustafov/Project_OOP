@@ -13,7 +13,6 @@ public class TextFileManagement {
         } catch (IOException e) {
             System.out.println("File can not be written!");
         }
-        System.out.println("file was written!");
     }
 
         public static String readFromFile(String fileName){

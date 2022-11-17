@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class Waiter extends Employee implements Displayable{
 
+
+    private static boolean flag = false;
     private static Scanner scan = new Scanner(System.in);
 
     public Waiter() {
@@ -30,19 +32,25 @@ public class Waiter extends Employee implements Displayable{
         return super.getOrders();
     }
 
-    public void saveOrderList() {
-        ArrayList<Order> order = getOrders();
+    public void saveOrderList(ArrayList<Order> currentOrderList) {
         if (UserManagement.getUserProfession()) {
             String fileName = UserManagement.getName() + "OrderList.csv";
-            ObjectFileManagement.writeObjectToFile(order,fileName);
+            ObjectFileManagement.writeObjectToFile(currentOrderList,fileName);
         }
         TextFileManagement.writeToFile(UserManagement.getName(),"ChefOrderList.txt");
+    }
+    public static void setFlag(boolean flag) {
+        Waiter.flag = flag;
+    }
+    private void flagMethod() {
+        setFlag(true);
     }
 
     public void displayOrders() {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < getOrders().size(); i++) {
             if (getOrders().get(i).getStatus().equals(Status.ACTIVE)) {
+                flagMethod();
                 System.out.println("--> Table with id " + getOrders().get(i).getTable().getTableId() + " has ACTIVE order");
                 System.out.println((i + 1) + ". " + getOrders().get(i).toString());
             }
@@ -80,7 +88,6 @@ public class Waiter extends Employee implements Displayable{
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Entered number is out of menu!");
         }
-        saveOrderList();
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
@@ -110,6 +117,7 @@ public class Waiter extends Employee implements Displayable{
 
 
     private void addMealToOrder(int order) {
+        ArrayList<Order> currentOrderList = getOrders();
         try {
             System.out.println(" ---- Choose from meals ---- ");
             int mealNumber = 0;
@@ -118,16 +126,18 @@ public class Waiter extends Employee implements Displayable{
                 System.out.println(mealNumber + "-> " + m);
             }
             int choice = (scan.nextInt() - 1);
-            getOrders().get(order).getMeals().add(FoodMenu.getMeals().get(choice));
+            currentOrderList.get(order).getMeals().add(FoodMenu.getMeals().get(choice));
             System.out.println(FoodMenu.getMeals().get(choice));
-            System.out.println(getOrders().get(order).getFoods().toString());
+            System.out.println(currentOrderList.get(order).getFoods().toString());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Chosen meal does not exist!");
         }
+        saveOrderList(currentOrderList);
     }
 
     private void removeMealFromOrder(int order) {
-        System.out.println(getOrders().get(order).getMeals().toString());
+        ArrayList<Order> currentOrderList = getOrders();
+        System.out.println(currentOrderList.get(order).getMeals().toString());
         System.out.println(" ----> Which meal to remove from order? <----");
         int chosenMeal = 0;
         try {
@@ -136,30 +146,34 @@ public class Waiter extends Employee implements Displayable{
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Order number " + chosenMeal + " does not exist!");
         }
+        saveOrderList(currentOrderList);
     }
 
     public void editOrder() {
         displayOrders();
-        System.out.println(" ----> Choose which order to edit <---- ");
-        try {
-            int order = (scan.nextInt() - 1);
-            System.out.println(getOrders().get(order).toString());
-            System.out.println(" ----> Enter 'A'(for adding to order) / enter 'R' (to remove from order)");
-            String choice = scan.next().toLowerCase();
-            switch (choice) {
-                case "a":
-                    addMealToOrder(order);
-                    break;
-                case "r":
-                    removeMealFromOrder(order);
-                    System.out.println(" ---> Chosen meal deleted ");
-                    break;
-                default:
-                    System.out.println(" ---> No such choice! ");
+        if (flag) {
+            System.out.println(" ----> Choose which order to edit <---- ");
+            try {
+                int order = (scan.nextInt() - 1);
+                System.out.println(getOrders().get(order).toString());
+                System.out.println(" ----> Enter 'A'(for adding to order) / enter 'R' (to remove from order)");
+                String choice = scan.next().toLowerCase();
+                switch (choice) {
+                    case "a":
+                        addMealToOrder(order);
+                        break;
+                    case "r":
+                        removeMealFromOrder(order);
+                        System.out.println(" ---> Chosen meal deleted ");
+                        break;
+                    default:
+                        System.out.println(" ---> No such choice! ");
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Wrong input!");
             }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Wrong input!");
         }
+        return;
     }
 
     private void readOrders() {
@@ -172,28 +186,39 @@ public class Waiter extends Employee implements Displayable{
     }
 
     public void changeOrderStatus() {
+        ArrayList<Order> currentOrderList = getOrders();
+        if (!currentOrderList.isEmpty()) {
         readOrders();
         System.out.println(" ---- Choose any of orders to change status ---- ");
         try {
         int choice = (scan.nextInt() - 1);
         System.out.println(" ----> Your chosen order's status: " + getOrders().get(choice).getStatus());
-        System.out.println(" ----> You can choose 'S' (for SERVED) or Active by pressing 'A' ");
+        System.out.println(" ----> Served by pressing 'S' / Active by pressing 'A' / Paid by pressing 'P' <---- ");
             String setStatusTo = scan.next().toLowerCase();
+
             switch (setStatusTo) {
                 case "s":
-                    getOrders().get(choice).setStatus(Status.SERVED);
-                    System.out.println("---> That order status is already - SERVED");
+                    currentOrderList.get(choice).setStatus(Status.SERVED);
+                    System.out.println("---> That order status is - SERVED");
                     break;
                 case "a":
-                    getOrders().get(choice).setStatus(Status.ACTIVE);
-                    System.out.println("---> That order's status is already - Active");
+                    currentOrderList.get(choice).setStatus(Status.ACTIVE);
+                    System.out.println("---> That order's status is - Active");
                     break;
+                case "p":
+                    currentOrderList.get(choice).setStatus(Status.PAID);
+                    currentOrderList.remove(currentOrderList.get(choice));
+                    System.out.println("---> That order's status is - Paid");
                 default:
                     System.out.println("---> No such choice for status! ");
-            }
+                }
         }catch (IndexOutOfBoundsException e){
             System.out.println("Wrong order number!");
         }
+    } else {
+            System.out.println("No orders for changing STATUS! ");
+        }
+        saveOrderList(currentOrderList);
     }
 
     @Override
