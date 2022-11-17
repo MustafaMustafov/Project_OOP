@@ -1,11 +1,12 @@
 package Restaurant;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-public class Order {
+public class Order implements Serializable {
     private Table table;
     private String orderTime;
     private ArrayList<Food> foods;
@@ -44,26 +45,13 @@ public class Order {
         this.orderTime =  setTime.format(thisTime);
     }
 
-    public String getOrderTime() {
-        return orderTime;
-    }
-
     public ArrayList<Food> getMeals() {
         return foods;
-    }
-
-    public void setMeals(ArrayList<Food> foods) {
-        this.foods = foods;
     }
 
     public Table getTable() {
         return table;
     }
-
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
 
     public String toString() {
 
@@ -72,19 +60,5 @@ public class Order {
                 "| foods="  + foods +
                 "| status=" + status +
                 '|';
-    }
-
-    public static void main(String[] args) {
-        Order or = new Order();
-       int count =0;
-        for (Food f: or.getFoods()){
-            count++;
-//            if(f.getClass().getName().equals("Drinks"))
-            System.out.println(count + "-->" + f);
-            System.out.println("================");
-            System.out.println(f.getClass().getSimpleName());
-        }
-
-
     }
 }
