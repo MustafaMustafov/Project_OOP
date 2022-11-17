@@ -7,15 +7,21 @@ import Staff.Waiter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static Management.ObjectFileManagement.readObjectFromFile;
 import static Management.ObjectFileManagement.writeObjectToFile;
 
 public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
     private static String activeUser;
     private final ArrayList<Employee> users;
-    private String userName;
-    private String password;
+    private static String name = "";
+
+    public static String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public UserManagement() {
         users = new ArrayList<>();
@@ -33,7 +39,6 @@ public class UserManagement {
         return staff;
     }
 
-
     public static void loginUser(ArrayList<Employee> employees) {
         UserManagement manager = new UserManagement();
         System.out.println("Enter username: ");
@@ -41,33 +46,34 @@ public class UserManagement {
         System.out.println("Enter password: ");
         String tempPassword = scan.nextLine();
 
-        if (checkUserExists(employees, manager, tempUserName, tempPassword)) return;
-        System.out.println("Wrong inputs!");
+        manager.checkUserExists(employees, manager, tempUserName, tempPassword);
+//            System.out.println("Incorrect login data entered!");
     }
 
-    public static boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
-                                      String tempPassword) {
-        if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
-            manager.registerNewUser(employees);
-            return true;
-        } else {
-            for (var obj : employees) {
-                String[] temp = obj.getUserName().split("=");
-                if (temp[temp.length - 1].equals(tempUserName) && obj.getPassword().equals(tempPassword)) {
-                    System.out.println(obj.getUserName() + " account was successfully " +
-                            "authenticated!");
-                    setActiveUser(obj.getClass().getName().toLowerCase());
-                    return true;
+    public boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
+                                          String tempPassword) {
+            if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
+                manager.registerNewUser(employees);
+                return true;
+            } else {
+                for (var obj : employees) {
+                    String[] temp = obj.getUserName().split("=");
+                    if (temp[temp.length - 1].equals(tempUserName) && obj.getPassword().equals(tempPassword)) {
+                        System.out.println(obj.getUserName() + " account was successfully " +
+                                "authenticated!");
+                        setActiveUser(obj.getClass().getName().toLowerCase());
+                        setName(obj.getName());
+                        return true;
+                    }
                 }
             }
-        }
         return false;
     }
 
     public static boolean getUserProfession() {
-        if(getActiveUser().equals("staff.chef")){
+        if (getActiveUser().equals("staff.chef")) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -80,18 +86,17 @@ public class UserManagement {
         UserManagement.activeUser = activeUser;
     }
 
-
-//    public ArrayList<Employee> getUsersList() {
-//        return users;
-//    }
+    public ArrayList<Employee> getUsersList() {
+        return users;
+    }
 
     private void registerNewUser(ArrayList<Employee> employees) {
         System.out.println("Enter employee name: ");
         String employeeName = scan.nextLine();
         System.out.println("Enter Username: ");
-        this.userName = scan.nextLine();
+        String userName = scan.nextLine();
         System.out.println("Enter password: ");
-        this.password = scan.nextLine();
+        String password = scan.nextLine();
         System.out.println("Enter user position /Chef or Waiter/: ");
         String worker = scan.nextLine();
         Employee newUser = pickupEmployee(employeeName, userName, password, worker);

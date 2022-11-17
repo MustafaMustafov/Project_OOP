@@ -1,10 +1,13 @@
 import Management.ObjectFileManagement;
 import Management.UserManagement;
+import Restaurant.Food;
+import Restaurant.FoodMenu;
 import Staff.Chef;
 import Staff.Employee;
 import Staff.Waiter;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import static Management.UserManagement.getUserProfession;
@@ -20,11 +23,15 @@ public class RMS {
         System.out.println("Welcome to RMS!");
         do {
             UserManagement.loginUser(staff);
-            boolean key = getUserProfession();
-            if (key) {
-                runMenuWaiter();
-            } else {
-                runMenuChef();
+            try {
+                boolean key = getUserProfession();
+                if (key) {
+                    runMenuWaiter();
+                } else {
+                    runMenuChef();
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Incorrect login data entered!");
             }
 
         } while (select != 0);
@@ -32,6 +39,7 @@ public class RMS {
 
     public static void runMenuWaiter() {
         Waiter waiter = new Waiter();
+        FoodMenu foodMenu = new FoodMenu();
         do {
             System.out.println("-------Waiter MENU -------");
             System.out.println("1.ADD new meal to MENU");
@@ -45,39 +53,43 @@ public class RMS {
             System.out.println("0.EXIT");
             System.out.println("----------------------------");
             System.out.println("Select: ");
+            try {
             select = sc.nextInt();
-            switch (select) {
-                case 0:
-                    System.out.println("The program is ending!");
-                    return;
-                case 1:
-                    waiter.addMealToMenu();
-                    break;
-                case 2:
-                    waiter.removeMealFromMenu();
-                    break;
-                case 3:
-                    waiter.displayMenu();
-                    break;
-                case 4:
-                    waiter.displayActiveOrders();
-                    break;
-                case 5:
-                    waiter.inputNewOrder();
-                    break;
-                case 6:
-                    waiter.editOrder();
-                    break;
-                case 7:
-                    waiter.changeOrderStatus();
-                    break;
-                case 8:
-                    return;
-                default:
-                    System.out.println("Wrong input!!");
-                    break;
+                switch (select) {
+                    case 0:
+                        System.out.println("The program is ending!");
+                        return;
+                    case 1:
+                        foodMenu.addMealToMenu();
+                        break;
+                    case 2:
+                        foodMenu.removeMealFromMenu();
+                        break;
+                    case 3:
+                        foodMenu.displayMenu();
+                        break;
+                    case 4:
+                        waiter.displayOrders();
+                        break;
+                    case 5:
+                        waiter.inputNewOrder();
+                        break;
+                    case 6:
+                        waiter.editOrder();
+                        break;
+                    case 7:
+                        waiter.changeOrderStatus();
+                        break;
+                    case 8:
+                        return;
+                    default:
+                        System.out.println("Please enter again your choice(0 to 8)!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("The input is not numbers type!!!" + "\n ____________");
+                return;
             }
-        } while (select != 0);
+        }while (select != 0);
     }
 
     public static void runMenuChef() {
@@ -90,21 +102,28 @@ public class RMS {
             System.out.println("0.EXIT");
             System.out.println("----------------------------");
             System.out.println("Select: ");
-            select = sc.nextInt();
-            switch (select) {
-                case 0:
-                    System.out.println("The program is ending!");
-                    return;
-                case 1:
-                    chef.displayOrders();
-                    break;
-                case 2:
-                    chef.updateOrderStatus();
-                    break;
-                case 3:
-                    return;
+            try {
+                select = sc.nextInt();
+                switch (select) {
+                    case 0:
+                        System.out.println("The program is ending!");
+                        return;
+                    case 1:
+                        chef.displayOrders();
+                        break;
+                    case 2:
+                        chef.updateOrderStatus();
+                        break;
+                    case 3:
+                        return;
+                    default:
+                    System.out.println("Please enter again your choice(0 to 3)!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("The input is not numbers type!!!" + "\n ____________");
+                break;
             }
-        }while(select!=0);
+        } while (select != 0);
     }
-}
+    }
 

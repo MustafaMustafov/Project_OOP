@@ -1,6 +1,8 @@
 package Restaurant;
 
-public class Table {
+import java.io.Serializable;
+
+public class Table implements Serializable {
     private int tableId;
     private boolean isFree;
 
@@ -31,5 +33,13 @@ public class Table {
 
     public void setStatus(String status) {
         this.isFree = isFree;
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "tableId=" + tableId +
+                ", isFree=" + isFree +
+                '}';
     }
 }

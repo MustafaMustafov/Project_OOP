@@ -11,7 +11,6 @@ class UserManagementTest {
 
     @Test
     public void TestIsChefisActiveUser() {
-//        Employee testUser = new Chef();
         UserManagement.setActiveUser("staff.chef");
         boolean expectedProfession = false;
         String actualProfession = UserManagement.getActiveUser();
@@ -54,7 +53,7 @@ class UserManagementTest {
     }
 
     @Test
-    public void CheckUserExists() {
+    public void CheckUserExists() throws Exception {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();
@@ -62,11 +61,11 @@ class UserManagementTest {
         String testUserName = "test";
         String testUserPassword = "test123";
 
-        assertTrue(UserManagement.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
+        assertTrue(testManager.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
     }
 
     @Test
-    public void CheckUserDoesNotExists() {
+    public void CheckUserDoesNotExists() throws Exception {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();
@@ -74,7 +73,7 @@ class UserManagementTest {
         String testUserName = "test1";
         String testUserPassword = "test123";
 
-        assertFalse(UserManagement.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
+        assertFalse(testManager.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
     }
 
 

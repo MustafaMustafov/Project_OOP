@@ -2,28 +2,29 @@ package Restaurant;
 
 public class Meal extends Food {
     private String type;
-    private boolean isCooked;
+    private Enum<MealStatus> mealStatus;
 
-    public Meal(String name, double price, String type, boolean isCooked) {
+    public Meal(String name, double price, String type, Enum<MealStatus> mealStatus) {
         super(name, price);
         this.type = type;
-        this.isCooked = false;
+        this.mealStatus = MealStatus.COOKING;
     }
 
     public String getType() {
         return type;
     }
 
-    public void setCooked(boolean cooked) {
-        isCooked = cooked;
+
+    public Enum<MealStatus> getMealStatus() {
+        return mealStatus;
     }
 
-    public boolean isCooked() {
-        return isCooked;
+    public void setMealStatus(Enum<MealStatus> mealStatus) {
+        this.mealStatus = mealStatus;
     }
 
     @Override
     public String toString() {
-        return getName() + "," + getPrice() + "," + getType() + "," + isCooked();
+        return "Name:" + getName() + "," + "Price: "+getPrice() + "," + "Type:"+getType() + "," + "Cooked: "+mealStatus;
     }
 }

@@ -1,16 +1,15 @@
 package Restaurant;
 
-import Management.ObjectFileManagement;
-
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.Iterator;
 
-public class Order {
+public class Order implements Serializable {
     private Table table;
     private String orderTime;
-    private List<Food> foods;
+    private ArrayList<Food> foods;
     private Enum<Status> status;
 
 
@@ -18,19 +17,21 @@ public class Order {
         return status;
     }
 
-    public Order(Table table, List<Food> foods, Enum<Status> status) {
+    public Order(Table table, ArrayList<Food> foods, Enum<Status> status) {
         this.table = table;
-        this.foods = new ArrayList<>();
+        this.foods = foods;
         this.status = Status.ACTIVE;
-        setOrderTime();                         //when order is created the timer will be set!!!
+        setOrderTime();
     }
 
     public void setStatus(Enum<Status> status) {
         this.status = status;
     }
 
-    public List<Food> getFoods() {
-        return foods;
+    public ArrayList<Food> getFoods() {
+        ArrayList<Food> newList = new ArrayList<>(FoodMenu.getMeals());
+        newList.addAll(FoodMenu.getDrinks());
+        return newList;
     }
 
     public Order(){
@@ -44,33 +45,20 @@ public class Order {
         this.orderTime =  setTime.format(thisTime);
     }
 
-    public String getOrderTime() {
-        return orderTime;
-    }
-
-    public List<Food> getMeals() {
+    public ArrayList<Food> getMeals() {
         return foods;
-    }
-
-    public void setMeals(List<Food> foods) {
-        this.foods = foods;
     }
 
     public Table getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
-    }
-
-    @Override
     public String toString() {
-        return "Order{" +
-                "table=" + table +
-                ", orderTime='" + orderTime + '\'' +
-                ", foods=" + foods +
-                ", status=" + status +
-                '}';
+
+        return "--> |orderTime=" + orderTime +
+                " table=" + table +
+                "| foods="  + foods +
+                "| status=" + status +
+                '|';
     }
 }

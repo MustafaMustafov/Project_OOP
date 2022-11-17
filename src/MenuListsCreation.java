@@ -1,6 +1,7 @@
 import Management.ObjectFileManagement;
 import Restaurant.Drink;
 import Restaurant.Meal;
+import Restaurant.MealStatus;
 
 
 import java.util.ArrayList;
@@ -8,29 +9,29 @@ import java.util.Collections;
 
 public class MenuListsCreation {
     public static void main(String[] args) {
-        Meal m = new Meal("Garlic bread",2.1,"Starter", false);
-        Meal m1 = new Meal("Green salad",2.9,"Starter", false);
-        Meal m2 = new Meal("Grilled mushrooms",3.1,"Starter", false);
-        Meal m3 = new Meal("Vegetable soup",3.5,"Starter", false);
-        Meal m4 = new Meal("Onion rings",3.5,"Starter", false);
-        Meal m5 = new Meal("Pasta salad",3.9,"Starter", false);
-        Meal m6 = new Meal("Cornish pasty",3.9,"Starter", false);
-        Meal m7 = new Meal("Chicken wings",4.1,"Starter", false);
-        Meal m8 = new Meal("Meatballs",4.4,"Starter", false);
-        Meal m9 = new Meal("Spaghetti",6,"Main", false);
-        Meal m10 = new Meal("Meatloaf",7.2,"Main", false);
-        Meal m11 = new Meal("Grilled chicken",7.5,"Main", false);
-        Meal m12 = new Meal("Lasagna",8.5,"Main", false);
-        Meal m13= new Meal("Steak",8.9,"Main", false);
-        Meal m14 = new Meal("Lamb chops",9.2,"Main", false);
-        Meal m15 = new Meal("King prawns",9.9,"Main", false);
-        Meal m16 = new Meal("Frutti del Mare",9.9,"Main", false);
-        Meal m17 = new Meal("Apple pie;3",3,"Dessert", true);
-        Meal m18 = new Meal("Backberry pie",3.1,"Dessert", true);
-        Meal m19 = new Meal("Pumpkin pie",3.3,"Dessert", true);
-        Meal m20 = new Meal("Chocolate cake",3.5,"Dessert", true);
-        Meal m21 = new Meal("Ice cream;3.7",3.7,"Dessert", true);
-        Meal m22= new Meal("Fruit salad",4,"Dessert", true);
+        Meal m = new Meal("Garlic bread",2.1,"Starter", MealStatus.COOKING);
+        Meal m1 = new Meal("Green salad",2.9,"Starter", MealStatus.COOKING);
+        Meal m2 = new Meal("Grilled mushrooms",3.1,"Starter", MealStatus.COOKING);
+        Meal m3 = new Meal("Vegetable soup",3.5,"Starter", MealStatus.COOKING);
+        Meal m4 = new Meal("Onion rings",3.5,"Starter", MealStatus.COOKING);
+        Meal m5 = new Meal("Pasta salad",3.9,"Starter", MealStatus.COOKING);
+        Meal m6 = new Meal("Cornish pasty",3.9,"Starter", MealStatus.COOKING);
+        Meal m7 = new Meal("Chicken wings",4.1,"Starter", MealStatus.COOKING);
+        Meal m8 = new Meal("Meatballs",4.4,"Starter", MealStatus.COOKING);
+        Meal m9 = new Meal("Spaghetti",6,"Main", MealStatus.COOKING);
+        Meal m10 = new Meal("Meatloaf",7.2,"Main", MealStatus.COOKING);
+        Meal m11 = new Meal("Grilled chicken",7.5,"Main", MealStatus.COOKING);
+        Meal m12 = new Meal("Lasagna",8.5,"Main", MealStatus.COOKING);
+        Meal m13= new Meal("Steak",8.9,"Main", MealStatus.COOKING);
+        Meal m14 = new Meal("Lamb chops",9.2,"Main", MealStatus.COOKING);
+        Meal m15 = new Meal("King prawns",9.9,"Main", MealStatus.COOKING);
+        Meal m16 = new Meal("Frutti del Mare",9.9,"Main", MealStatus.COOKING);
+        Meal m17 = new Meal("Apple pie;3",3,"Dessert", MealStatus.COOKING);
+        Meal m18 = new Meal("Backberry pie",3.1,"Dessert", MealStatus.COOKING);
+        Meal m19 = new Meal("Pumpkin pie",3.3,"Dessert", MealStatus.COOKING);
+        Meal m20 = new Meal("Chocolate cake",3.5,"Dessert", MealStatus.COOKING);
+        Meal m21 = new Meal("Ice cream;3.7",3.7,"Dessert", MealStatus.COOKING);
+        Meal m22= new Meal("Fruit salad",4,"Dessert", MealStatus.COOKING);
         ArrayList<Meal> meals = new ArrayList<>();
         Collections.addAll(meals, m, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20, m21, m22);
         for (Meal meal :meals ){
