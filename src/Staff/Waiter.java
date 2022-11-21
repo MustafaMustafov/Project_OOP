@@ -91,6 +91,7 @@ public class Waiter extends Employee implements Displayable{
     }
 
     private void chooseFood(Table table, Order order, int choice, int chosenTable) {
+        ArrayList<Order> currentOrderList = getOrders();
         double sum = 0;
         if (checkTableStatus(chosenTable)) {
             FoodMenu.displayMenu();
@@ -104,10 +105,11 @@ public class Waiter extends Employee implements Displayable{
                     System.out.println("Total amount: " + sum);
                 }
             }
-            getOrders().add(new Order(new Table(table.getTableId(), false), addFoodToOrder, Status.ACTIVE));
+            currentOrderList.add(new Order(new Table(table.getTableId(), false), addFoodToOrder, Status.ACTIVE));
         } else {
             System.out.println("Table is busy!");
         }
+        saveOrderList(currentOrderList);
     }
 
     private double totalAmount(int choice, Order order, double sum) {
