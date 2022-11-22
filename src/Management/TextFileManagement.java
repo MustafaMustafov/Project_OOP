@@ -1,12 +1,11 @@
 package Management;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class TextFileManagement {
     public static void writeToFile(String text,String fileName) {
         try {
-            FileWriter fileOut = new FileWriter( "project/ProgramFiles/" + fileName);
+            FileWriter fileOut = new FileWriter( "ProgramFiles/" + fileName);
             BufferedWriter bw = new BufferedWriter(fileOut);
             bw.write(text);
             bw.close();
@@ -18,7 +17,7 @@ public class TextFileManagement {
         public static String readFromFile(String fileName){
         String temp = "";
             try{
-                FileReader fr = new FileReader( "project/ProgramFiles/" + fileName);
+                FileReader fr = new FileReader( "ProgramFiles/" + fileName);
                 BufferedReader br = new BufferedReader(fr);
                 temp = br.readLine();
                 }   catch (IOException e){

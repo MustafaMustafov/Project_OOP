@@ -5,7 +5,7 @@ import Restaurant.Order;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Employee implements Serializable {
+public class  Employee implements Serializable {
     private String name;
     private String userName;
     private String password;

@@ -5,7 +5,6 @@ import Management.TextFileManagement;
 import Management.UserManagement;
 import Restaurant.*;
 
-import javax.print.attribute.standard.JobKOctets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -58,7 +57,7 @@ public class Waiter extends Employee implements Displayable{
         System.out.println();
     }
 
-    private boolean checkTableStatus(int tableId) {
+    public boolean checkTableStatus(int tableId) {
         boolean answer = false;
         if (getOrders().isEmpty()) {
             answer = true;
@@ -112,7 +111,7 @@ public class Waiter extends Employee implements Displayable{
         saveOrderList(currentOrderList);
     }
 
-    private double totalAmount(int choice, Order order, double sum) {
+    public double totalAmount(int choice, Order order, double sum) {
         sum += order.getFoods().get(choice).getPrice();
         return sum;
     }

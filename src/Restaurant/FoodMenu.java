@@ -36,6 +36,7 @@ public class FoodMenu {
     }
 
     public void addMealToMenu() {
+
         System.out.println("Enter meal name: ");
         String mealName = scan.nextLine();
         System.out.println("Enter meal price: ");
