@@ -41,6 +41,11 @@ public class Waiter extends Employee implements Displayable{
     public static void setFlag(boolean flag) {
         Waiter.flag = flag;
     }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
     private void flagMethod() {
         setFlag(true);
     }
@@ -116,7 +121,6 @@ public class Waiter extends Employee implements Displayable{
         return sum;
     }
 
-
     private void addMealToOrder(int order) {
         ArrayList<Order> currentOrderList = getOrders();
         try {
@@ -143,7 +147,7 @@ public class Waiter extends Employee implements Displayable{
         int chosenMeal = 0;
         try {
             chosenMeal = (scan.nextInt() - 1);
-            getOrders().get(order).getMeals().remove(chosenMeal);
+            currentOrderList.get(order).getMeals().remove(chosenMeal);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Order number " + chosenMeal + " does not exist!");
         }
@@ -174,10 +178,10 @@ public class Waiter extends Employee implements Displayable{
                 System.out.println("Wrong input!");
             }
         }
-        return;
+        System.out.println("No active orders! ");
     }
 
-    private void readOrders() {
+    public void readOrders() {
         int count = 0;
         for (Order order : getOrders()) {
             count++;
@@ -196,23 +200,7 @@ public class Waiter extends Employee implements Displayable{
         System.out.println(" ----> Your chosen order's status: " + getOrders().get(choice).getStatus());
         System.out.println(" ----> Served by pressing 'S' / Active by pressing 'A' / Paid by pressing 'P' <---- ");
             String setStatusTo = scan.next().toLowerCase();
-
-            switch (setStatusTo) {
-                case "s":
-                    currentOrderList.get(choice).setStatus(Status.SERVED);
-                    System.out.println("---> That order status is - SERVED");
-                    break;
-                case "a":
-                    currentOrderList.get(choice).setStatus(Status.ACTIVE);
-                    System.out.println("---> That order's status is - Active");
-                    break;
-                case "p":
-                    currentOrderList.get(choice).setStatus(Status.PAID);
-                    currentOrderList.remove(currentOrderList.get(choice));
-                    System.out.println("---> That order's status is - Paid");
-                default:
-                    System.out.println("---> No such choice for status! ");
-                }
+            setStatus(currentOrderList, choice, setStatusTo);
         }catch (IndexOutOfBoundsException e){
             System.out.println("Wrong order number!");
         }
@@ -220,6 +208,25 @@ public class Waiter extends Employee implements Displayable{
             System.out.println("No orders for changing STATUS! ");
         }
         saveOrderList(currentOrderList);
+    }
+
+    public void setStatus(ArrayList<Order> currentOrderList, int choice, String setStatusTo) {
+        switch (setStatusTo) {
+            case "s":
+                currentOrderList.get(choice).setStatus(Status.SERVED);
+                System.out.println("---> That order status is - SERVED");
+                break;
+            case "a":
+                currentOrderList.get(choice).setStatus(Status.ACTIVE);
+                System.out.println("---> That order's status is - Active");
+                break;
+            case "p":
+                currentOrderList.get(choice).setStatus(Status.PAID);
+                currentOrderList.remove(currentOrderList.get(choice));
+                System.out.println("---> That order's status is - Paid");
+            default:
+                System.out.println("---> No such choice for status! ");
+            }
     }
 
     @Override

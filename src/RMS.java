@@ -94,7 +94,7 @@ public class RMS {
     public static void runMenuChef() {
         Chef chef = new Chef();
         do {
-            System.out.println("-------Chef MENU -------");
+            System.out.println("------- Chef MENU -------");
             System.out.println("1.DISPLAY order");
             System.out.println("2.UPDATE order status");
             System.out.println("3.Logout account");

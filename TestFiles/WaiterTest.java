@@ -14,7 +14,7 @@ class WaiterTest {
 	@Test
 	public void testReadListOfOrdersFromFile() {
 		Waiter testWaiter = new Waiter("Ivan", "ivan", "1234");
-		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("DraganOrderList.csv"));
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
 		int expectedValue = 2;
 		int actualValue = testWaiter.getOrders().size();
 		assertEquals(expectedValue, actualValue);
@@ -40,14 +40,67 @@ class WaiterTest {
 	@Test
 	public void testIfGetPriceIsWorking (){
 		Waiter testWaiter = new Waiter();
-//		Food testFood = new Food("testFood",5);
 		ArrayList<Food> testFoodList = new ArrayList<>();
-//		testFoodList.add(testFood);
 		Order testOrder = new Order(new Table(1,true),testFoodList,Status.ACTIVE);
 		double expectedValue = 2.9;
 		double actualValue = testWaiter.totalAmount(1,testOrder,0);
 		assertEquals(expectedValue,actualValue);
 		
 	}
-	
+
+	@Test
+	public void testIfDisplayOrdersMethodShowOnlyActiveOrders() {
+		Waiter testWaiter = new Waiter();
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
+		testWaiter.displayOrders();
+		assertTrue(testWaiter.isFlag());
+	}
+
+	@Test
+	public void testTotalAmountValueIsFive() {
+		Waiter testWaiter = new Waiter();
+		double expectedValue = 5;
+		double actualValue = testWaiter.totalAmount(1,new Order(),2.1);
+		assertEquals(expectedValue,actualValue);
+	}
+
+	@Test
+	public void testReadOrdersIfCountIsTwo() {
+		Waiter testWaiter = new Waiter();
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
+		testWaiter.readOrders();
+		int expectedValue = 2;
+		int actualValue = testWaiter.getOrders().size();
+		assertEquals(expectedValue,actualValue);
+	}
+
+	@Test
+	public void testSetStatusIfStatusChangedToServed() {
+		Waiter testWaiter = new Waiter();
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
+		testWaiter.setStatus(testWaiter.getOrders(),0,"s");
+		Status expectedValue = Status.SERVED;
+		Status actualValue = (Status) testWaiter.getOrders().get(0).getStatus();
+		assertEquals(expectedValue,actualValue);
+	}
+	@Test
+	public void testSetStatusIfStatusChangedToActive() {
+		Waiter testWaiter = new Waiter();
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
+		testWaiter.setStatus(testWaiter.getOrders(),0,"a");
+		Status expectedValue = Status.ACTIVE;
+		Status actualValue = (Status) testWaiter.getOrders().get(0).getStatus();
+		assertEquals(expectedValue,actualValue);
+	}
+	@Test
+	public void testSetStatusIfStatusChangedToPaid() {
+		Waiter testWaiter = new Waiter();
+		testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
+		testWaiter.setStatus(testWaiter.getOrders(),0,"p");
+		int expectedValue = 1;
+		int actualValue = testWaiter.getOrders().size();
+		assertEquals(expectedValue,actualValue);
+	}
+
+
 }
