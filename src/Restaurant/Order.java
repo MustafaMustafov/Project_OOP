@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Order implements Serializable {
+    private static Timer timer = new Timer();
     private Table table;
     private String orderTime;
     private ArrayList<Food> foods;
@@ -21,8 +24,17 @@ public class Order implements Serializable {
         this.foods = foods;
         this.status = Status.ACTIVE;
         setOrderTime();
+        callTimerTask();
     }
 
+    public void callTimerTask() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Check table with id --> " + getTable().getTableId());
+            }
+        }, 10000, 50000);
+    }
     public void setStatus(Enum<Status> status) {
         this.status = status;
     }
@@ -36,6 +48,7 @@ public class Order implements Serializable {
     public Order(){
         this.foods = new ArrayList<>();
     }
+
 
     public void setOrderTime() {
         Date thisTime = new Date();
