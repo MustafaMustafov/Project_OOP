@@ -52,7 +52,7 @@ public class UserManagement {
 
     public boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
                                           String tempPassword) {
-            if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
+            if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {  
                 manager.registerNewUser(employees);
                 return true;
             } else {

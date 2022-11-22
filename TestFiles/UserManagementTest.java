@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserManagementTest {
 
     @Test
-    public void TestIsChefisActiveUser() {
+    public void TestIfChefIsActiveUser() {
         UserManagement.setActiveUser("staff.chef");
         boolean expectedProfession = false;
         String actualProfession = UserManagement.getActiveUser();
@@ -53,7 +53,7 @@ class UserManagementTest {
     }
 
     @Test
-    public void CheckUserExists() throws Exception {
+    public void TestIfUserExists() {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();
@@ -65,16 +65,14 @@ class UserManagementTest {
     }
 
     @Test
-    public void CheckUserDoesNotExists() throws Exception {
+    public void TestIfUserDoesNotExists()  {
         UserManagement testManager = new UserManagement();
         Chef testChef = new Chef("Test","test","test123");
         ArrayList<Employee> testUsers = new ArrayList<>();
         testUsers.add(testChef);
         String testUserName = "test1";
         String testUserPassword = "test123";
-
         assertFalse(testManager.checkUserExists(testUsers,testManager,testUserName,testUserPassword));
     }
-
-
+    
 }

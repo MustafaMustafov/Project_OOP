@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 public class Order implements Serializable {
     private Table table;
@@ -39,7 +38,6 @@ public class Order implements Serializable {
     }
 
     public void setOrderTime() {
-        //set current time when the method was run
         Date thisTime = new Date();
         SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
         this.orderTime =  setTime.format(thisTime);
@@ -55,10 +53,10 @@ public class Order implements Serializable {
 
     public String toString() {
 
-        return "--> |orderTime=" + orderTime +
-                " table=" + table +
-                "| foods="  + foods +
-                "| status=" + status +
-                '|';
+        return "| orderTime-> " + orderTime + " | \n" +
+                "   | table-> " + table + " | \n" +
+                "   | foods-> "  + foods +" | \n" +
+                "   | status-> " + status + " | \n" +
+        "--------------------------------------------------";
     }
 }

@@ -4,11 +4,8 @@ import Management.ObjectFileManagement;
 import Management.TextFileManagement;
 import Restaurant.*;
 
-import javax.print.attribute.standard.OrientationRequested;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static Restaurant.FoodMenu.meals;
 
 public class Chef extends Employee implements Displayable{
     private static Scanner scan = new Scanner(System.in);
