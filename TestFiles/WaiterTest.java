@@ -20,7 +20,6 @@ class WaiterTest {
         int actualValue = testWaiter.getOrders().size();
         assertEquals(expectedValue, actualValue);
     }
-
     @Test
     public void testTableNumberOneIsExistInTheList() {
         Table testTable = new Table(1, true);
@@ -33,21 +32,13 @@ class WaiterTest {
     }
 
     @Test
-    public void testTableListShouldBeEmpty() {
-        Waiter testWaiter = new Waiter();
-        boolean expectedAnswer = testWaiter.checkTableStatus(1);
-        Assertions.assertTrue(expectedAnswer);
-    }
-
-    @Test
-    public void testIfGetPriceIsWorking() {
+    public void testIfPriceIsTwoPointOne() {
         Waiter testWaiter = new Waiter();
         ArrayList<Food> testFoodList = new ArrayList<>();
         Order testOrder = new Order(new Table(1, true), testFoodList, Status.ACTIVE);
         double expectedValue = 2.1;
         double actualValue = testWaiter.totalAmount(1, testOrder, 0);
         assertEquals(expectedValue, actualValue);
-
     }
 
     @Test

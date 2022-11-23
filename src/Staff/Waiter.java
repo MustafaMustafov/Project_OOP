@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Waiter extends Employee implements Displayable{
 
-
     private static boolean flag = false;
     private static Scanner scan = new Scanner(System.in);
 
