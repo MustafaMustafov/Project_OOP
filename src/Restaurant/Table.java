@@ -24,16 +24,15 @@ public class Table implements Serializable {
         } else {
             this.tableId = tableId;
         }
-
     }
 
-    public boolean getIsFree() {
-        return isFree;
-    }
+//    public boolean getIsFree() {
+//        return isFree;
+//    }
 
-    public void setStatus(String status) {
-        this.isFree = isFree;
-    }
+//    public void setStatus(String status) {
+//        this.isFree = isFree;
+//    }
 
     @Override
     public String toString() {

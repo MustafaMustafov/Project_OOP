@@ -87,7 +87,6 @@ public class Waiter extends Employee implements Displayable{
             System.out.println(" ---> Enter table number <--- ");
             int chosenTable = scan.nextInt();
             table.setTableId(chosenTable);
-
             chooseFood(table, order, choice, chosenTable);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Entered number is out of menu!");
@@ -117,7 +116,7 @@ public class Waiter extends Employee implements Displayable{
     }
 
     public double totalAmount(int choice, Order order, double sum) {
-        sum += order.getFoods().get(choice).getPrice();
+        sum += order.getFoods().get(choice-1).getPrice();
         return sum;
     }
 

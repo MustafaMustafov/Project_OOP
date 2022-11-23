@@ -1,16 +1,13 @@
 package Management;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class ObjectFileManagement {
 
-    public static<T> void writeObjectToFile(ArrayList<T> objects, String inputName) {
+    public static <T> void writeObjectToFile(ArrayList<T> objects, String inputName) {
         try {
-            String fileName = "project/ProgramFiles/" + inputName;
+            String fileName = "ProgramFiles/" + inputName;
             FileOutputStream outputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(objects);
@@ -21,17 +18,26 @@ public class ObjectFileManagement {
         }
     }
 
-    public static<T> ArrayList<T> readObjectFromFile(String inputName) {
+    public static <T> ArrayList<T> readObjectFromFile(String inputName) {
         ArrayList<T> obj = new ArrayList<>();
+        Exception falseException=null;
+        FileInputStream inputStream = null;
         try {
-            String fileName = "project/ProgramFiles/" + inputName;
-            FileInputStream inputStream = new FileInputStream(fileName);
+            String fileName = "ProgramFiles/" + inputName;
+            inputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             obj = (ArrayList<T>) objectInputStream.readObject();
             objectInputStream.close();
             inputStream.close();
         } catch (Exception e) {
-            System.out.println("File not found!");
+            e =  falseException;
+        } finally {
+            if (inputStream != null)
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    System.out.println("File not found!");
+                }
         }
         return obj;
     }
