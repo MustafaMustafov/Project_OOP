@@ -1,5 +1,7 @@
 package Restaurant;
 
+import Management.ObjectFileManagement;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,21 +38,36 @@ public class FoodMenu {
     }
 
     public void addMealToMenu() {
-
-        System.out.println("Enter meal name: ");
-        String mealName = scan.nextLine();
-        System.out.println("Enter meal price: ");
-        double mealPrice = scan.nextDouble();
-        System.out.println("Enter meal type: ");
-        String mealType = scan.next();
-        FoodMenu.meals.add(new Meal(mealName, mealPrice, mealType, MealStatus.COOKING));
+        try {
+            System.out.println("----------------------------");
+            System.out.println("Enter meal name: ");
+            String mealName = scan.nextLine();
+            System.out.println("Enter meal price: ");
+            double mealPrice = scan.nextDouble();
+            scan.nextLine();
+            System.out.println("Enter meal type: ");
+            String mealType = scan.next();
+            FoodMenu.meals.add(new Meal(mealName, mealPrice, mealType, MealStatus.COOKING));
+            ObjectFileManagement.writeObjectToFile(meals,"Meals.csv");
+        }catch (Exception e){
+            System.out.println("Wrong entered data!\n----------------------------");
+        }
+        scan.nextLine();
     }
 
     public void removeMealFromMenu() {
         Order order = new Order();
-        System.out.println("Enter meal name to remove from menu: ");
+        System.out.println(order.getFoodsList().size());
+        System.out.println("Enter meal number (1 to " +FoodMenu.meals.size() +") to remove from menu: ");
         int mealNumber = (scan.nextInt() - 1);
-        order.getFoodsList().remove(order.getFoodsList().get((mealNumber)));
+        try {
+            if (mealNumber <= FoodMenu.meals.size()) {
+                FoodMenu.meals.remove(mealNumber);
+                ObjectFileManagement.writeObjectToFile(meals,"Meals.csv");
+            }
+        }catch (Exception e){
+            System.out.println("Selected Item is not a Meal!");
+        }
     }
 
     public static void displayMenu() {

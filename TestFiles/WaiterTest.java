@@ -4,11 +4,11 @@ import Restaurant.Order;
 import Restaurant.Status;
 import Restaurant.Table;
 import Staff.Waiter;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WaiterTest {
@@ -28,7 +28,7 @@ class WaiterTest {
         testOrdersList.add(new Order(testTable, new ArrayList<>(), Status.ACTIVE));
         testWaiter.setOrders(testOrdersList);
         boolean expectedAnswer = testWaiter.checkTableStatus(1);
-        Assertions.assertFalse(expectedAnswer);
+        assertFalse(expectedAnswer);
     }
 
     @Test
@@ -46,7 +46,7 @@ class WaiterTest {
         Waiter testWaiter = new Waiter();
         testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
         testWaiter.displayOrders();
-        Assertions.assertTrue(testWaiter.isFlag());
+        assertTrue(testWaiter.isFlag());
     }
 
     @Test
@@ -95,5 +95,16 @@ class WaiterTest {
         int expectedValue = 1;
         int actualValue = testWaiter.getOrders().size();
         assertEquals(expectedValue, actualValue);
+    }
+    @Test
+    public void testIfTotalOrderCostIsTen(){
+        Waiter testWaiter = new Waiter();
+        ArrayList<Food> testFoods = new ArrayList<>();
+        testFoods.add(new Food("testDriinks",6.5));
+        testFoods.add(new Food("testBread",3.5));
+        Order testOrder = new Order(new Table(10,true),testFoods,Status.SERVED);
+        double expectedValue = 10.0;
+        double actualValue = testWaiter.getTotalOrderCost(testOrder);
+        assertEquals(expectedValue,actualValue);
     }
 }

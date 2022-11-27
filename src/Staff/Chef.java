@@ -39,27 +39,38 @@ public class Chef extends Employee implements Displayable {
     public void updateOrderStatus() {
         ArrayList<Order> currentOrderList = getOrders();
         System.out.println("Enter order: ");
-        int order = (scan.nextInt() - 1), i = 1;
+        try {
+            int order = (scan.nextInt() - 1), i = 1;
             for (Food f : getOrders().get(order).getOrderFoods()) {
                 System.out.println(i + " ---> " + f);
                 i++;
-        }
-        System.out.println("Enter meal to change status to COOKED: ");
-        int meal = scan.nextInt() - 1;
-        changeOrderStatus(currentOrderList, order, meal);
+            }
+            System.out.println("Enter meal to change status to COOKED: ");
+            int meal = scan.nextInt() - 1;
+            changeOrderStatus(currentOrderList, order, meal);
+        }catch (Exception e){
+                System.out.println("Wrong choice!");
+            }
         saveOrderList(currentOrderList);
     }
 
     public void changeOrderStatus(ArrayList<Order> currentOrderList, int order, int meal) {
-        if (getOrders().get(order).getOrderFoods().get(meal).getClass().toString().equals("Restaurant.Drink")) {
-            System.out.println("Wrong food choice!");
-        } else {
-            Meal mealToUpdate = (Meal) getOrders().get(order).getOrderFoods().get(meal);
-            currentOrderList.get(order).getOrderFoods().remove(meal);
-            mealToUpdate.setMealStatus(MealStatus.COOKED);
-            currentOrderList.get(order).getOrderFoods().add(mealToUpdate);
+
+            if (getOrders().get(order).getOrderFoods().get(meal).getClass().toString().equals("class Restaurant.Drink")) {
+                System.out.println("Wrong choice, a drink has been selected!");
+            } else {
+                Meal mealToUpdate = (Meal) getOrders().get(order).getOrderFoods().get(meal);
+                if (!((Meal) getOrders().get(order).getOrderFoods().get(meal)).getMealStatus().equals(MealStatus.COOKED)) {
+                    currentOrderList.get(order).getOrderFoods().remove(meal);
+                    mealToUpdate.setMealStatus(MealStatus.COOKED);
+                    currentOrderList.get(order).getOrderFoods().add(mealToUpdate);
+                } else {
+                    System.out.println(getOrders().get(order).getOrderFoods().get(meal).getName() + " was already cooked," +
+                            " " +
+                            "please choose another one!");
+                }
+            }
         }
-    }
 
     public void saveOrderList(ArrayList<Order> currentOrderList) {
         String waiterName = TextFileManagement.readFromFile("ChefOrderList.txt");
