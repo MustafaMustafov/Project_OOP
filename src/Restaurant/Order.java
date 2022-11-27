@@ -1,5 +1,7 @@
 package Restaurant;
 
+import Staff.Waiter;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public ArrayList<Food> getFoods() {
+    public ArrayList<Food> getFoodsList() {
         ArrayList<Food> newList = new ArrayList<>(FoodMenu.getMeals());
         newList.addAll(FoodMenu.getDrinks());
         return newList;
@@ -56,10 +58,9 @@ public class Order implements Serializable {
         this.orderTime =  setTime.format(thisTime);
     }
 
-    public ArrayList<Food> getMeals() {
+    public ArrayList<Food> getOrderFoods() {
         return foods;
     }
-
     public Table getTable() {
         return table;
     }

@@ -7,7 +7,7 @@ public class Meal extends Food {
     public Meal(String name, double price, String type, Enum<MealStatus> mealStatus) {
         super(name, price);
         this.type = type;
-        this.mealStatus = MealStatus.COOKING;
+        this.mealStatus = mealStatus;
     }
 
     public String getType() {
@@ -16,7 +16,7 @@ public class Meal extends Food {
 
 
     public Enum<MealStatus> getMealStatus() {
-        return mealStatus;
+        return this.mealStatus;
     }
 
     public void setMealStatus(Enum<MealStatus> mealStatus) {
@@ -25,6 +25,6 @@ public class Meal extends Food {
 
     @Override
     public String toString() {
-        return "Name:" + getName() + "," + "Price: "+getPrice() + "," + "Type:"+getType() + "," + "Status: "+mealStatus;
+        return "Name:" + getName() + "," + "Price: "+getPrice() + "," + "Type:"+getType() + "," + "Status: "+getMealStatus(); //mealstatus
     }
 }

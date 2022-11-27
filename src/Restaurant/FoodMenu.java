@@ -50,14 +50,14 @@ public class FoodMenu {
         Order order = new Order();
         System.out.println("Enter meal name to remove from menu: ");
         int mealNumber = (scan.nextInt() - 1);
-        order.getFoods().remove(order.getFoods().get((mealNumber)));
+        order.getFoodsList().remove(order.getFoodsList().get((mealNumber)));
     }
 
     public static void displayMenu() {
         Order order = new Order();
         System.out.println(" ============== Menu ============== ");
-        for (int i = 0; i < order.getFoods().size(); i++) {
-            System.out.println((i + 1) + "-->" + order.getFoods().get(i) +
+        for (int i = 0; i < order.getFoodsList().size(); i++) {
+            System.out.println((i + 1) + "-->" + order.getFoodsList().get(i) +
                     "\n----------------------------------------------");
         }
     }
