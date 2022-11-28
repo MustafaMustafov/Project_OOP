@@ -10,10 +10,10 @@ import java.util.TimerTask;
 public class Order implements Serializable {
     private static Timer timer = new Timer();
     private Table table;
+
     private String orderTime;
     private ArrayList<Food> foods;
     private Enum<Status> status;
-
 
     public Order(Table table, ArrayList<Food> foods, Enum<Status> status) {
         this.table = table;
@@ -21,6 +21,10 @@ public class Order implements Serializable {
        this.status = Status.ACTIVE;
         setOrderTime();
         callTimerTask();
+    }
+
+    public String getOrderTime() {
+        return orderTime;
     }
 
     public Order() {
@@ -39,12 +43,13 @@ public class Order implements Serializable {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Check table with id --> " + getTable().getTableId());
+                System.out.println("Check table with id --> " + getTable().getTableId() + ", because the table was " +
+                        "not served for 30 min.!");
             }
         }, 10000, 50000);
     }
 
-    public ArrayList<Food> getFoodsList() {
+    public ArrayList<Food> getMenuList() {
         ArrayList<Food> newList = new ArrayList<>(FoodMenu.getMeals());
         newList.addAll(FoodMenu.getDrinks());
         return newList;
@@ -52,7 +57,7 @@ public class Order implements Serializable {
 
     public void setOrderTime() {
         Date thisTime = new Date();
-        SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
+        SimpleDateFormat setTime = new SimpleDateFormat("| dd.MM.yyyy | hh:mm ");
         this.orderTime = setTime.format(thisTime);
     }
 
@@ -66,7 +71,7 @@ public class Order implements Serializable {
 
     public String toString() {
 
-        return "| orderTime-> " + orderTime + " | \n" +
+        return "| orderTime-> " + orderTime + "  \n" +
                 "   | table-> " + table + " | \n" +
                 "   | foods-> " + foods + " | \n" +
                 "   | status-> " + status + " | \n" +

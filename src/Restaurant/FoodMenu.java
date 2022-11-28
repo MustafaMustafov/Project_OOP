@@ -98,8 +98,8 @@ public class FoodMenu implements Addable, Removable {
     public static void displayMenu() {
         Order order = new Order();
         System.out.println(" ============== Menu ============== ");
-        for (int i = 0; i < order.getFoodsList().size(); i++) {
-            System.out.println((i + 1) + "-->" + order.getFoodsList().get(i) +
+        for (int i = 0; i < order.getMenuList().size(); i++) {
+            System.out.println((i + 1) + "-->" + order.getMenuList().get(i) +
                     "\n----------------------------------------------");
         }
     }

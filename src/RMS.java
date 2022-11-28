@@ -39,7 +39,7 @@ public class RMS {
         Waiter waiter = new Waiter();
         FoodMenu foodMenu = new FoodMenu();
         do {
-            System.out.println("------- Waiter MENU -------\n");
+            System.out.println("\n------- Waiter MENU -------");
             System.out.println("1.ADD new food to MENU");
             System.out.println("2.REMOVE food from MENU");
             System.out.println("3.DISPLAY food menu");

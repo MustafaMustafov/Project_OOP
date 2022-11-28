@@ -7,6 +7,8 @@ import Restaurant.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static Restaurant.MealStatus.COOKING;
+
 public class Chef extends Employee implements Displayable {
     private static final Scanner scan = new Scanner(System.in);
 
@@ -26,18 +28,33 @@ public class Chef extends Employee implements Displayable {
     }
 
     public void displayOrders() {
+        int count = 0;
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < getOrders().size(); i++) {
+            ArrayList<Food> tempFoodList = getOrders().get(i).getOrderFoods();
             if (getOrders().get(i).getStatus().equals(Status.ACTIVE)) {
-                System.out.println("---> Table with id " + getOrders().get(i).getTable().getTableId() + " has ACTIVE order");
-                System.out.println(i + 1 + ". " + getOrders().get(i).toString());
+                count=0;
+                System.out.println("---> Table " + getOrders().get(i).getTable().getTableId() + " has ACTIVE " +
+                        "order" + " --> № " + (i + 1) + " <---");
+                for (Food f : tempFoodList) {
+                    if (f.getClass().equals(Meal.class)) {
+                        count++;
+                        if (((Meal) f).getMealStatus().equals(COOKING)) {
+                            System.out.println((tempFoodList.indexOf(f)+1) + ". " + f);
+                        }
+                    }
+                }
+
             }
+            System.out.println(count==0?"Table has not any meal for " +
+                    "cooking!\n--------------------------------------":
+                    "--------------------------------------");
         }
-        System.out.println();
     }
 
     public void updateOrderStatus() {
         ArrayList<Order> currentOrderList = getOrders();
+        displayOrders();
         System.out.println("Enter order: ");
         try {
             int order = (scan.nextInt() - 1), i = 1;

@@ -32,7 +32,7 @@ class WaiterTest {
     }
 
     @Test
-    public void testPriceIfTwoPointOne() {
+    public void testPriceTwoPointOne() {
         Waiter testWaiter = new Waiter();
         ArrayList<Food> testFoodList = new ArrayList<>();
         Order testOrder = new Order(new Table(1, true), testFoodList, Status.ACTIVE);
@@ -100,12 +100,18 @@ class WaiterTest {
     public void testTotalOrderCostShouldBeTen(){
         Waiter testWaiter = new Waiter();
         ArrayList<Food> testFoods = new ArrayList<>();
-        testFoods.add(new Food("testDrinks",6.5));
+        testFoods.add(new Food("testDriinks",6.5));
         testFoods.add(new Food("testBread",3.5));
         Order testOrder = new Order(new Table(10,true),testFoods,Status.SERVED);
         double expectedValue = 10.0;
         double actualValue = testWaiter.getTotalOrderCost(testOrder);
         assertEquals(expectedValue,actualValue);
     }
+    @Test
+    public void test(){
 
+    int expectedValue =0;
+    int actualValue =0;
+    assertEquals(expectedValue,actualValue);
+    }
 }

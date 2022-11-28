@@ -53,13 +53,22 @@ public class Waiter extends Employee implements Displayable,Settable {
     public void displayOrders() {
         System.out.println(" ==== Active Orders ==== ");
         for (int i = 0; i < getOrders().size(); i++) {
+            ArrayList<Food> tempFoodList = getOrders().get(i).getOrderFoods();
             if (getOrders().get(i).getStatus().equals(Status.ACTIVE)) {
                 flagMethod();
-                System.out.println("--> Table with id " + getOrders().get(i).getTable().getTableId() + " has ACTIVE order");
-                System.out.println((i + 1) + ". " + getOrders().get(i).toString());
+                System.out.println("---> ACTIVE order" + " --> № "+(i+1) + " <---");
+
+                System.out.println("   | Order time-> " + getOrders().get(i).getOrderTime() + " | \n"+
+                        "   | Table-> " + getOrders().get(i).getTable().getTableId() + " | \n"+
+                        "   | Foods ");
+
+                for (Food f : tempFoodList) {
+                    System.out.println("\t\t"+(tempFoodList.indexOf(f)+1) + ". " + f);
+                }
+                System.out.println("   | Status-> " + getOrders().get(i).getStatus() + " | ");
             }
+            System.out.println("--------------------------------------");
         }
-        System.out.println();
     }
 
     public boolean checkTableStatus(int tableId) {
@@ -104,7 +113,7 @@ public class Waiter extends Employee implements Displayable,Settable {
                 System.out.println("Choose from menu to add to the order! Or push 0 for exit!");
                 choice = scan.nextInt();
                 if (choice != 0) {
-                    addFoodToOrder.add(order.getFoodsList().get(choice - 1));
+                    addFoodToOrder.add(order.getMenuList().get(choice - 1));
                     sum = totalAmount(choice, order, sum);
                     System.out.println("Total amount: " + sum);
                 }
@@ -117,7 +126,7 @@ public class Waiter extends Employee implements Displayable,Settable {
     }
 
     public double totalAmount(int choice, Order order, double sum) {
-        sum += order.getFoodsList().get(choice - 1).getPrice();
+        sum += order.getMenuList().get(choice - 1).getPrice();
         return sum;
     }
 
