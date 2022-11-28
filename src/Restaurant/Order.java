@@ -18,7 +18,7 @@ public class Order implements Serializable {
     public Order(Table table, ArrayList<Food> foods, Enum<Status> status) {
         this.table = table;
         this.foods = foods;
-        this.status = Status.ACTIVE;
+       this.status = Status.ACTIVE;
         setOrderTime();
         callTimerTask();
     }

@@ -18,8 +18,6 @@ public class FoodMenu implements Addable, Removable {
         return drinks;
     }
 
-
-
     public static <T> ArrayList<T> loadList(String fileName) {
         ArrayList<T> newList = new ArrayList<>();
         ArrayList<T> temp = Management.ObjectFileManagement.readObjectFromFile(fileName);
@@ -27,14 +25,6 @@ public class FoodMenu implements Addable, Removable {
             newList.add(l);
         }
         return newList;
-    }
-
-    private static <T> void readList(ArrayList<T> list) {
-        int count = 0;
-        for (T temp : list) {
-            count++;
-            System.out.println(count + "-> " + temp);
-        }
     }
 
     public void addMealToMenu() {

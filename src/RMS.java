@@ -17,7 +17,6 @@ public class RMS {
 
     static ArrayList<Employee> staff = ObjectFileManagement.readObjectFromFile("users.csv");
 
-
     public static void main(String[] args) {
         System.out.println("Welcome to RMS!");
         do {
@@ -40,25 +39,23 @@ public class RMS {
         Waiter waiter = new Waiter();
         FoodMenu foodMenu = new FoodMenu();
         do {
-            System.out.println("-------Waiter MENU -------");
+            System.out.println("------- Waiter MENU -------\n");
             System.out.println("1.ADD new food to MENU");
             System.out.println("2.REMOVE food from MENU");
             System.out.println("3.DISPLAY food menu");
-            System.out.println("----------------------------");
             System.out.println("4.DISPLAY active orders");
             System.out.println("5.CREATE new order");
             System.out.println("6.EDIT order");
             System.out.println("7.PAY bill / CHANGE order status");
-            System.out.println("----------------------------");
             System.out.println("8.Logout account");
             System.out.println("0.EXIT");
             System.out.println("----------------------------");
             System.out.println("Select: ");
             try {
-            select = sc.nextInt();
+                select = sc.nextInt();
                 switch (select) {
                     case 0:
-                        System.out.println("The program is ending!");
+                        System.out.println("The program ended!");
                         return;
                     case 1:
                         chooseFoodToAdd(foodMenu);
@@ -90,17 +87,17 @@ public class RMS {
                 System.out.println("The input is not numbers type!!!" + "\n ____________");
                 return;
             }
-        }while (select != 0);
+        } while (select != 0);
     }
 
     private static void chooseFoodToAdd(FoodMenu foodMenu) {
         System.out.println("(1) Add to Meals\n(2) Add to Drinks\n-----------------------");
         int choice = sc.nextInt();
-        if(choice==1) {
+        if (choice == 1) {
             foodMenu.addMealToMenu();
-        }else if(choice==2){
+        } else if (choice == 2) {
             foodMenu.addDrinkToMenu();
-        }else{
+        } else {
             System.out.println("Wrong input!");
         }
     }
@@ -108,11 +105,11 @@ public class RMS {
     private static void chooseFoodToRemove(FoodMenu foodMenu) {
         System.out.println("(1) Remove to Meals\n(2) Remove to Drinks\n-----------------------");
         int choice = sc.nextInt();
-        if(choice==1) {
+        if (choice == 1) {
             foodMenu.removeMealFromMenu();
-        }else if(choice==2){
+        } else if (choice == 2) {
             foodMenu.removeDrinkFromMenu();
-        }else{
+        } else {
             System.out.println("Wrong input!");
         }
     }
@@ -142,7 +139,7 @@ public class RMS {
                     case 3:
                         return;
                     default:
-                    System.out.println("Please enter again your choice(0 to 3)!");
+                        System.out.println("Please enter again your choice(0 to 3)!");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("The input is not numbers type!!!" + "\n ____________");
@@ -150,5 +147,5 @@ public class RMS {
             }
         } while (select != 0);
     }
-    }
+}
 

@@ -7,6 +7,8 @@ public class Food implements Serializable {
     private double price;
 
     public Food() {
+        this.name = "unknown";
+        this.price = 0.0;
     }
 
     public Food(String name, double price) {
@@ -18,17 +20,15 @@ public class Food implements Serializable {
         return name;
     }
 
-
     public double getPrice() {
         return price;
     }
-
 
     @Override
     public String toString() {
         return "Food{" +
                 "name='" + name + '\'' +
-                ",price=" + price + "\n"+
+                ",price=" + price + "\n" +
                 '}';
     }
 }

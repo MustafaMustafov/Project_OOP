@@ -12,8 +12,12 @@ import static Management.ObjectFileManagement.writeObjectToFile;
 public class UserManagement {
     private static final Scanner scan = new Scanner(System.in);
     private static String activeUser;
-    private final ArrayList<Employee> users;
     private static String name = "";
+    private final ArrayList<Employee> users;
+
+    public UserManagement() {
+        users = new ArrayList<>();
+    }
 
     public static String getName() {
         return name;
@@ -21,10 +25,6 @@ public class UserManagement {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public UserManagement() {
-        users = new ArrayList<>();
     }
 
     public static Employee pickupEmployee(String employeeName, String userName, String pswd, String worker) {
@@ -47,27 +47,6 @@ public class UserManagement {
         String tempPassword = scan.nextLine();
 
         manager.checkUserExists(employees, manager, tempUserName, tempPassword);
-//            System.out.println("Incorrect login data entered!");
-    }
-
-    public boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
-                                          String tempPassword) {
-            if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {  
-                manager.registerNewUser(employees);
-                return true;
-            } else {
-                for (var obj : employees) {
-                    String[] temp = obj.getUserName().split("=");
-                    if (temp[temp.length - 1].equals(tempUserName) && obj.getPassword().equals(tempPassword)) {
-                        System.out.println(obj.getUserName() + " account was successfully " +
-                                "authenticated!");
-                        setActiveUser(obj.getClass().getName().toLowerCase());
-                        setName(obj.getName());
-                        return true;
-                    }
-                }
-            }
-        return false;
     }
 
     public static boolean getUserProfession() {
@@ -84,6 +63,26 @@ public class UserManagement {
 
     public static void setActiveUser(String activeUser) {
         UserManagement.activeUser = activeUser;
+    }
+
+    public boolean checkUserExists(ArrayList<Employee> employees, UserManagement manager, String tempUserName,
+                                   String tempPassword) {
+        if (tempUserName.equals("Manager") && tempPassword.equals("manager123")) {
+            manager.registerNewUser(employees);
+            return true;
+        } else {
+            for (var obj : employees) {
+                String[] temp = obj.getUserName().split("=");
+                if (temp[temp.length - 1].equals(tempUserName) && obj.getPassword().equals(tempPassword)) {
+                    System.out.println(obj.getUserName() + " account was successfully " +
+                            "authenticated!");
+                    setActiveUser(obj.getClass().getName().toLowerCase());
+                    setName(obj.getName());
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public ArrayList<Employee> getUsersList() {

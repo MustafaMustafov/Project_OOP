@@ -20,7 +20,7 @@ public class ObjectFileManagement {
 
     public static <T> ArrayList<T> readObjectFromFile(String inputName) {
         ArrayList<T> obj = new ArrayList<>();
-        Exception falseException=null;
+        Exception falseException = null;
         FileInputStream inputStream = null;
         try {
             String fileName = "ProgramFiles/" + inputName;
@@ -30,7 +30,7 @@ public class ObjectFileManagement {
             objectInputStream.close();
             inputStream.close();
         } catch (Exception e) {
-            e =  falseException;
+            e = falseException;
         } finally {
             if (inputStream != null)
                 try {
