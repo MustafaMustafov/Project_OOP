@@ -32,7 +32,7 @@ class WaiterTest {
     }
 
     @Test
-    public void testIfPriceIsTwoPointOne() {
+    public void testPriceIfTwoPointOne() {
         Waiter testWaiter = new Waiter();
         ArrayList<Food> testFoodList = new ArrayList<>();
         Order testOrder = new Order(new Table(1, true), testFoodList, Status.ACTIVE);
@@ -58,7 +58,7 @@ class WaiterTest {
     }
 
     @Test
-    public void testReadOrdersIfCountIsTwo() {
+    public void testReadOrdersCountShouldBeTwo() {
         Waiter testWaiter = new Waiter();
         testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
         testWaiter.readOrders();
@@ -68,7 +68,7 @@ class WaiterTest {
     }
 
     @Test
-    public void testSetStatusIfStatusChangedToServed() {
+    public void testSetStatusChangedToServed() {
         Waiter testWaiter = new Waiter();
         testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
         testWaiter.setStatus(testWaiter.getOrders(), 0, "s");
@@ -78,7 +78,7 @@ class WaiterTest {
     }
 
     @Test
-    public void testSetStatusIfStatusChangedToActive() {
+    public void testSetStatusChangedToActive() {
         Waiter testWaiter = new Waiter();
         testWaiter.setOrders(ObjectFileManagement.readObjectFromFile("TestDraganOrderList.csv"));
         testWaiter.setStatus(testWaiter.getOrders(), 0, "a");
@@ -97,14 +97,15 @@ class WaiterTest {
         assertEquals(expectedValue, actualValue);
     }
     @Test
-    public void testIfTotalOrderCostIsTen(){
+    public void testTotalOrderCostShouldBeTen(){
         Waiter testWaiter = new Waiter();
         ArrayList<Food> testFoods = new ArrayList<>();
-        testFoods.add(new Food("testDriinks",6.5));
+        testFoods.add(new Food("testDrinks",6.5));
         testFoods.add(new Food("testBread",3.5));
         Order testOrder = new Order(new Table(10,true),testFoods,Status.SERVED);
         double expectedValue = 10.0;
         double actualValue = testWaiter.getTotalOrderCost(testOrder);
         assertEquals(expectedValue,actualValue);
     }
+
 }

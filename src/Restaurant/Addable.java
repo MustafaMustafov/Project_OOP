@@ -1,8 +1,6 @@
-package Staff;
-
-import Restaurant.Food;
+package Restaurant;
 
 public interface Addable {
     void addMealToMenu();
-
+    void addDrinkToMenu();
 }

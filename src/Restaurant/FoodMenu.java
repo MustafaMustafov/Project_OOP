@@ -5,7 +5,7 @@ import Management.ObjectFileManagement;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class FoodMenu {
+public class FoodMenu implements Addable, Removable {
     private static Scanner scan = new Scanner(System.in);
     public static ArrayList<Meal> meals = loadList("Meals.csv");
     public static ArrayList<Drink> drinks = loadList("Drinks.csv");
@@ -44,7 +44,6 @@ public class FoodMenu {
             String mealName = scan.nextLine();
             System.out.println("Enter meal price: ");
             double mealPrice = scan.nextDouble();
-            scan.nextLine();
             System.out.println("Enter meal type: ");
             String mealType = scan.next();
             FoodMenu.meals.add(new Meal(mealName, mealPrice, mealType, MealStatus.COOKING));
@@ -55,9 +54,27 @@ public class FoodMenu {
         scan.nextLine();
     }
 
+    public void addDrinkToMenu() {
+        try {
+            System.out.println("----------------------------");
+            System.out.println("Enter drink name: ");
+            String drinkName = scan.nextLine();
+            System.out.println("Enter drink price: ");
+            double drinkPrice = scan.nextDouble();
+            FoodMenu.drinks.add(new Drink(drinkName, drinkPrice));
+            ObjectFileManagement.writeObjectToFile(drinks,"Drinks.csv");
+        }catch (Exception e){
+            System.out.println("Wrong entered data!\n----------------------------");
+        }
+        scan.nextLine();
+    }
+
     public void removeMealFromMenu() {
-        Order order = new Order();
-        System.out.println(order.getFoodsList().size());
+        int i =1;
+        for (Meal m:FoodMenu.getMeals()) {
+            System.out.println("("+ i + ")" +  m.getName());
+            i++;
+        }
         System.out.println("Enter meal number (1 to " +FoodMenu.meals.size() +") to remove from menu: ");
         int mealNumber = (scan.nextInt() - 1);
         try {
@@ -70,6 +87,24 @@ public class FoodMenu {
         }
     }
 
+    public void removeDrinkFromMenu() {
+        int i =1;
+        for (Drink d:FoodMenu.getDrinks()) {
+            System.out.println("("+ i + ")" +  d.getName());
+            i++;
+        }
+        System.out.println("Enter drink number (1 to " +FoodMenu.drinks.size() +") to remove from menu: ");
+        int drinkNumber = (scan.nextInt() - 1);
+        try {
+            if (drinkNumber <= FoodMenu.drinks.size()) {
+                FoodMenu.drinks.remove(drinkNumber);
+                ObjectFileManagement.writeObjectToFile(drinks,"Drinks.csv");
+            }
+        }catch (Exception e){
+            System.out.println("Selected Item is not a Drink!");
+        }
+    }
+
     public static void displayMenu() {
         Order order = new Order();
         System.out.println(" ============== Menu ============== ");
@@ -77,13 +112,5 @@ public class FoodMenu {
             System.out.println((i + 1) + "-->" + order.getFoodsList().get(i) +
                     "\n----------------------------------------------");
         }
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Meal> meals = loadList("Meals.csv");
-        ArrayList<Drink> drinks = loadList("Drinks.csv");
-        readList(meals);
-        System.out.println("------------");
-        readList(drinks);
     }
 }

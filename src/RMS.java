@@ -41,13 +41,15 @@ public class RMS {
         FoodMenu foodMenu = new FoodMenu();
         do {
             System.out.println("-------Waiter MENU -------");
-            System.out.println("1.ADD new meal to MENU");
-            System.out.println("2.REMOVE meal from MENU");
+            System.out.println("1.ADD new food to MENU");
+            System.out.println("2.REMOVE food from MENU");
             System.out.println("3.DISPLAY food menu");
+            System.out.println("----------------------------");
             System.out.println("4.DISPLAY active orders");
             System.out.println("5.CREATE new order");
             System.out.println("6.EDIT order");
-            System.out.println("7.CHANGE order status");
+            System.out.println("7.PAY bill / CHANGE order status");
+            System.out.println("----------------------------");
             System.out.println("8.Logout account");
             System.out.println("0.EXIT");
             System.out.println("----------------------------");
@@ -59,10 +61,10 @@ public class RMS {
                         System.out.println("The program is ending!");
                         return;
                     case 1:
-                        foodMenu.addMealToMenu();
+                        chooseFoodToAdd(foodMenu);
                         break;
                     case 2:
-                        foodMenu.removeMealFromMenu();
+                        chooseFoodToRemove(foodMenu);
                         break;
                     case 3:
                         FoodMenu.displayMenu();
@@ -89,6 +91,30 @@ public class RMS {
                 return;
             }
         }while (select != 0);
+    }
+
+    private static void chooseFoodToAdd(FoodMenu foodMenu) {
+        System.out.println("(1) Add to Meals\n(2) Add to Drinks\n-----------------------");
+        int choice = sc.nextInt();
+        if(choice==1) {
+            foodMenu.addMealToMenu();
+        }else if(choice==2){
+            foodMenu.addDrinkToMenu();
+        }else{
+            System.out.println("Wrong input!");
+        }
+    }
+
+    private static void chooseFoodToRemove(FoodMenu foodMenu) {
+        System.out.println("(1) Remove to Meals\n(2) Remove to Drinks\n-----------------------");
+        int choice = sc.nextInt();
+        if(choice==1) {
+            foodMenu.removeMealFromMenu();
+        }else if(choice==2){
+            foodMenu.removeDrinkFromMenu();
+        }else{
+            System.out.println("Wrong input!");
+        }
     }
 
     public static void runMenuChef() {

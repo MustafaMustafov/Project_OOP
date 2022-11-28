@@ -1,7 +1,5 @@
 package Restaurant;
 
-import Staff.Waiter;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,16 +15,24 @@ public class Order implements Serializable {
     private Enum<Status> status;
 
 
-    public Enum<Status> getStatus() {
-        return status;
-    }
-
     public Order(Table table, ArrayList<Food> foods, Enum<Status> status) {
         this.table = table;
         this.foods = foods;
         this.status = Status.ACTIVE;
         setOrderTime();
         callTimerTask();
+    }
+
+    public Order() {
+        this.foods = new ArrayList<>();
+    }
+
+    public Enum<Status> getStatus() {
+        return status;
+    }
+
+    public void setStatus(Enum<Status> status) {
+        this.status = status;
     }
 
     public void callTimerTask() {
@@ -37,9 +43,6 @@ public class Order implements Serializable {
             }
         }, 10000, 50000);
     }
-    public void setStatus(Enum<Status> status) {
-        this.status = status;
-    }
 
     public ArrayList<Food> getFoodsList() {
         ArrayList<Food> newList = new ArrayList<>(FoodMenu.getMeals());
@@ -47,20 +50,16 @@ public class Order implements Serializable {
         return newList;
     }
 
-    public Order(){
-        this.foods = new ArrayList<>();
-    }
-
-
     public void setOrderTime() {
         Date thisTime = new Date();
         SimpleDateFormat setTime = new SimpleDateFormat("|dd.MM.yyyy | hh:mm|");
-        this.orderTime =  setTime.format(thisTime);
+        this.orderTime = setTime.format(thisTime);
     }
 
     public ArrayList<Food> getOrderFoods() {
         return foods;
     }
+
     public Table getTable() {
         return table;
     }
@@ -69,8 +68,8 @@ public class Order implements Serializable {
 
         return "| orderTime-> " + orderTime + " | \n" +
                 "   | table-> " + table + " | \n" +
-                "   | foods-> "  + foods +" | \n" +
+                "   | foods-> " + foods + " | \n" +
                 "   | status-> " + status + " | \n" +
-        "--------------------------------------------------";
+                "--------------------------------------------------";
     }
 }
